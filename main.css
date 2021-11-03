@@ -1,0 +1,53 @@
+    /*폰트*/
+    @font-face {
+        font-family: 'cooper';
+        src: url('CooperFiveOpti.otf');
+    }
+
+    /*배경*/
+    body {
+        background-color: RGB(255,255,153); 
+        /* background-image: url('img/햄버거감튀.png'),url('img/콜라치킨.png'),
+        url('img/햄버거감튀.png'),url('img/콜라치킨.png'),url('img/햄버거감튀.png'),
+        url('img/콜라치킨.png'),url('img/햄버거감튀.png'),url('img/콜라치킨.png'); */
+        background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
+        background-repeat: repeat-x;
+        background-size: 300px;  
+    }
+
+    /*타이틀*/
+    .title{
+        font-size: 7em;
+        font-family: cooper;
+        color: #41A541;
+        text-align: center;
+        /*text-shadow:  8px 13px rgba(0, 0, 0, 0.16) ;*/
+        text-shadow: -4px 0  #000 ;
+        margin-top: 240px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20%;
+    }
+
+    /*버튼*/
+    .gameStart{
+        width: 469px;
+        height: 186px;
+        position: absolute;
+        top:55%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 45px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: bold;
+        background-color: rgba(255 35 0);
+        /*버튼 모서리 둥글게 하는 것이 적용 안됨*/
+        border-radius: 30px;
+    }
+    /*버튼 클릭하고 색이나 글자 바꾸고 싶으면 여기 수정*/
+    .gameStart:hover{
+        
+        background-color: aqua;
+    }
+
