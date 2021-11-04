@@ -12,8 +12,13 @@
         background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
         background-repeat: repeat-x;
         background-size: 300px;  
+            animation: displace 4s linear infinite;
+        }
+        @keyframes displace {
+            from { background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
+            } to { background-position: center 1200px;
+        }
     }
-
     /*타이틀*/
     .title{
         font-size: 5em;
@@ -30,23 +35,6 @@
         top: 15%;
     }
 
-    /*버튼*/
-    /*.gameStart{
-        width: 300px;
-        height: 140px;
-        position: absolute;
-        top: 55%;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 43px;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        font-weight: bold;
-        background-color: rgb(235, 64, 64);
-        border-radius: 30px;
-        margin: 0 auto;
-        margin-top: 80px;
-        
-    }*/
     .shop{
         width: 30px;
         height: 140px;
@@ -62,8 +50,10 @@
     }
 
     /*버튼 클릭하고 색이나 글자 바꾸고 싶으면 여기 수정*/
-    .gameStart:hover{
+   /* .gameStart:hover{
         
         background-color: rgb(118, 216, 136);
-    }
+    } */
+    
+    
 
