@@ -6,51 +6,63 @@
 
     /*배경*/
     body {
-        width: 1200px;
-        height: 800px;
         background-color: RGB(255,255,153); 
-        /*background-image: url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),
+       /* background-image: url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),
         url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'); */
-       /* background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;*/
+        background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
         background-repeat: repeat-x;
-        background-size: 300px;  
-        animation: displace 4s linear infinite;
-        }
-       /*from { background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
-            } to { background-position: center 1200px;
-        }
-    }*/
+        
+        /*animation: displace 4s linear infinite;
+       {
+        from { background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;} 
+        to { background-position: center 1200px; }
+       } */
+
+    }
+    #titleDiv{
+        margin: auto;
+    }
+
     /*타이틀*/
     .title{
-        font-size: 5em;
+        font-size: 7em;
         font-family: cooper;
         color: #41A541;
         text-align: center;
-        /*text-shadow:  8px 13px rgba(0, 0, 0, 0.16) ;*/
-        text-shadow: -4px 0  #000 ;
-      /*  left: 50%;
-        transform: translateX(50%); */
-        top: 15%;
-        
+        text-shadow:  8px 13px rgba(0, 0, 0, 0.16) ;
+        /*text-shadow: -4px 0  #000 ;*/
+        width:fit-content;
+        margin:auto;
+       
     }
-
-   .storePng, .rankPng, .helpPng{
-        position: relative;
+    #menuBtn{
+        margin-top: 130px;
     }
-    .gameStart_btn{
-        display: block;
-        width :300px;
+    .gameStart_btn, .help_btn, .rank_btn{       
+        display: block; 
+        margin:auto;
+        width :500px;
         height: 100px;
-        margin-left: 450px;
+        margin-top: 60px;
         background-color: red;
+        font-size: xx-large;
         color: black; 
+        border-radius: 40px;
     }
-    .helpPng{
-        width: 100px;
-        height: 80px;
-    }
-    /*버튼 누를 시 효과*/
 
+    .storePng{
+        float: right;
+        margin-top: 50px;
+        margin-right: 50px;
+    }
+
+
+
+    /*버튼 누를 시 효과*/
+.gameStart_btn:hover{
+    background-color: blue;
+    color: aliceblue;
+}
     
     
 

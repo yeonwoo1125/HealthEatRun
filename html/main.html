@@ -6,22 +6,33 @@
 
 </head>
 <body>
-    <!--<canvas id="canvas"></canvas>-->
+    <canvas id="canvas"></canvas>
 
-    <h1 class="title">HEALTH EAT RUN !</h1>
-    <button type="button" class="gameStart_btn" onclick="location.href='mainGame.html'">Game Start</button>
-
-    <a href="help.html" class="helpPng">
-        <img src="/HealthEatRun/img/help_btn.png">
-    </a>
+    <div id="titleDiv">
+        <h1 class="title">HEALTH EAT RUN !</h1>  
+    </div>
+    <div id="menuBtn">
+        <button type="button" class="gameStart_btn" onclick="location.href='mainGame.html'">Game Start</button>
+        <button type="button" class="help_btn" onclick="location.href='help.html'">
+            <img src="/HealthEatRun/img/help.png"  width="50px" height="50px">도움말</button>
+        <button type="button" class="rank_btn" onclick="location.href='rank.html'">
+            <img src="/HealthEatRun/img/rank.png" width="50px" height="40px">랭킹</button>
+    </div>
     
-  <!--  <a href="store.html" class="storePng">
-        <img src="/HealthEatRun/img/store_btn.png"  >
-    </a>
-       
-    <a href="rank.html" class="rankPng">
-        <img src="/HealthEatRun/img/rank_btn.png">
-    </a>-->
+   <!-- <div id="img_btn">
+        <a href="rank.html" class="rankPng">
+            <img src="/HealthEatRun/img/rank.png"/>
+        </a>
+        <a href="help.html" class="helpPng" >
+            <img src="/HealthEatRun/img/help.png" width="100px" height="100px"/>
+        </a>
+        
+
+        
+    </div>
+--><a href="store.html" class="storePng">
+    <img src="/HealthEatRun/img/store.png" width="200px" height="200px" >
+</a>
       
         <script src="/HealthEatRun/js/main.js"></script>
 </body>
