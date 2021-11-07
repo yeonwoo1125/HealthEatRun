@@ -3,26 +3,25 @@
     <meta charset="UTF-8">
     <title>HEALTH EAT RUN</title>
     <link rel="stylesheet" href="/style/main.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Yeon+Sung&display=swap" rel="stylesheet">
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <h1 id="title">HEALTH EAT RUN !</h1>  
 
-    <div id="titleDiv">
-        <h1 id="title">HEALTH EAT RUN !</h1>  
-    </div>
-    <div id="menuBtn">
-        <button type="button" id="gameStart_btn" onclick="location.href='mainGame.html'">Game Start</button>
+    <div id="menu_div">
+        <button type="button" id="gameStart_btn" onclick="location.href='mainGame.html'">게임시작</button>
         <button type="button" id="help_btn" onclick="location.href='help.html'">
-            <img src="/img/help.png"  width="50px" height="50px">도움말</button>
-        <button type="button" id="rank_btn" onclick="location.href='rank.html'">
-            <img src="/img/rank.png" width="50px" height="40px">랭킹</button>
-    </div>
-    
-<a href="store.html" id="storePng">
-    <img src="/img/store.png" width="200px" height="200px" >
-</a>
+            <img src="/img/help.png" id="helpPng" width="50px" height="50px">도움말</button>
+        </div>
+        <div id="rank_div">
+            <button type="button" id="rank_btn" onclick="location.href='rank.html'">
+                <img src="/img/rank.png" id="rankPng" width="50px" height="40px">랭킹</button>
+        </div>
+
+        <a href="store.html" id="storePng">
+            <img src="/img/store.png" width="200px" height="200px" >
+        </a>
       
-        <script src="/js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

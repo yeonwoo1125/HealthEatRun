@@ -7,10 +7,10 @@
     /*배경*/
     body {
         background-color: RGB(255,255,153); 
-       /* background-image: url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),
-        url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'); */
+        /*background-image: url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),
+        url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'); 
         background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
-        background-repeat: repeat-x;
+        background-repeat: repeat-x;*/
         
         /*animation: displace 4s linear infinite;
        {
@@ -19,40 +19,41 @@
        } */
 
     }
-    #titleDiv{
-        margin: auto;
-    }
 
     /*타이틀*/
     #title{
+        margin: 150px auto auto auto;
         font-size: 7em;
         font-family: cooper;
         color: #41A541;
         text-align: center;
         text-shadow:  8px 13px rgba(0, 0, 0, 0.16) ;
+        
         /*text-shadow: -4px 0  #000 ;*/
-        width:fit-content;
-        margin:auto;
-       
     }
-    #menuBtn{
+    #menu_div{
         margin-top: 130px;
+        text-align: center;
+        
     }
-    #gameStart_btn, #help_btn, #rank_btn{       
-        display: block; 
-        margin:auto;
-        width :500px;
+    #gameStart_btn, #help_btn, #rank_btn{  
+        width :380px;
         height: 100px;
+        margin: 0 auto;
         margin-top: 60px;
-        background-color: red;
-        font-size: xx-large;
-        color: black; 
+        background-color: #F16650;
+        font-size: 3em;
+        font-family: 'Jua', sans-serif;
+        color: white; 
         border-radius: 40px;
+    }
+    #rank_div{
+        text-align: center;
     }
 
     #storePng{
         float: right;
-        margin-top: 50px;
+        margin-top: 30px;
         margin-right: 50px;
     }
 
