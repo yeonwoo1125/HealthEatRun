@@ -24,7 +24,7 @@
     }
 
     /*타이틀*/
-    .title{
+    #title{
         font-size: 7em;
         font-family: cooper;
         color: #41A541;
@@ -38,7 +38,7 @@
     #menuBtn{
         margin-top: 130px;
     }
-    .gameStart_btn, .help_btn, .rank_btn{       
+    #gameStart_btn, #help_btn, #rank_btn{       
         display: block; 
         margin:auto;
         width :500px;
@@ -50,7 +50,7 @@
         border-radius: 40px;
     }
 
-    .storePng{
+    #storePng{
         float: right;
         margin-top: 50px;
         margin-right: 50px;
@@ -59,7 +59,7 @@
 
 
     /*버튼 누를 시 효과*/
-.gameStart_btn:hover{
+#gameStart_btn:hover{
     background-color: blue;
     color: aliceblue;
 }
