@@ -1,0 +1,15 @@
+body {
+    background-image: url('../img/Brick.jpg');
+    background-position: center;
+    background-size:cover;
+   
+}
+
+#title{
+    margin: 30px auto auto auto;
+    font-size: 7em;
+    font-family: cooper;
+    color: #F5E716;
+    text-align: center;
+    text-shadow: -4px 0  #000 ;
+}
