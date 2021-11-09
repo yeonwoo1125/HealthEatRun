@@ -1,0 +1,21 @@
+#disc{
+    text-align: center;
+    margin: 0 auto; 
+    margin-top: 50px;
+    background-color: white;
+    width: 80%;
+    height: 900px;
+    font-size: 5em;
+    font-family: 'Jua', sans-serif;
+}
+#rule{
+    margin-top: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 35px;
+}
+#before_btn{
+    width: 80px;
+    height: 50px;
+    margin-left: 70px;
+    float: left;
+}

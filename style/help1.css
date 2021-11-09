@@ -1,0 +1,29 @@
+#goMain_btn{
+    position: relative;
+    margin: 40px;
+}
+#disc{
+    text-align: center;
+    margin: 0 auto; 
+    margin-top: -70px;
+    background-color: white;
+    width: 80%;
+    height: 900px;
+    font-size: 5em;
+    font-family: 'Jua', sans-serif;
+}
+#story{
+    font-family: 'Yeon Sung', cursive;
+    margin-top: 100px;
+    font-size: 50px;
+}
+#runningMan{
+    margin-top: -270px;
+    float: left;
+}
+#next_btn{
+    width: 80px;
+    height: 50px;
+    margin-right: 70px;
+    float: right;
+}

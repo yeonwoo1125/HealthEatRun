@@ -1,0 +1,18 @@
+body{
+    background-color:#F9E8BF;
+    margin: 0;
+    overflow: hidden;
+}
+#bottom{
+    width: 100vw;
+    height: 105px;
+    background-color: #A94A00;
+    opacity: 0.41;
+    position: absolute;
+    bottom: 0;
+}
+
+#runningMan{
+    margin-top: -270px;
+    float: left;
+}
