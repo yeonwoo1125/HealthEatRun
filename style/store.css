@@ -1,5 +1,10 @@
+@font-face {
+    font-family: 'cooper';
+    src: url('CooperFiveOpti.otf');
+}
+
 body {
-    background-image: url('../img/Brick.jpg');
+    background-image: url('../img/back.jpg');
     background-position: center;
     background-size:cover;
    
@@ -12,4 +17,26 @@ body {
     color: #F5E716;
     text-align: center;
     text-shadow: -4px 0  #000 ;
+}
+
+#square{
+    position: relative;
+    left: 90px;
+    top: 50px;
+    width:200px;
+    height:220px;
+    background: #EBD6BD;
+}
+
+#payment{  
+    width :500px;
+    height: 100px;
+    position: relative;
+    left: 720px;
+    top: 550px;
+    background-color: #f16751;
+    font-size: 3em;
+    font-family: cooper;
+    color:black; 
+    border-radius: 40px;
 }

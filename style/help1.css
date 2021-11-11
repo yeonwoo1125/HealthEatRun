@@ -5,15 +5,15 @@
 #disc{
     text-align: center;
     margin: 0 auto; 
-    margin-top: -70px;
-    background-color: white;
+    margin-top: -9px;
+    /*background-color: white;*/
     width: 80%;
     height: 900px;
     font-size: 5em;
     font-family: 'Jua', sans-serif;
 }
 #story{
-    font-family: 'Yeon Sung', cursive;
+    font-family: 'songmyong', cursive;
     margin-top: 100px;
     font-size: 50px;
 }
@@ -26,4 +26,9 @@
     height: 50px;
     margin-right: 70px;
     float: right;
+}
+body{
+    background-image: url('../img/paper2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
