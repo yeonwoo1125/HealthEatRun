@@ -7,36 +7,45 @@ body {
     background-image: url('../img/back.jpg');
     background-position: center;
     background-size:cover;
-   
+    text-align: center;
 }
 
 #title{
-    margin: 30px auto auto auto;
+    margin-top: 30px;
     font-size: 7em;
     font-family: cooper;
     color: #F5E716;
     text-align: center;
     text-shadow: -4px 0  #000 ;
 }
-
-#square{
-    position: relative;
-    left: 90px;
-    top: 50px;
-    width:200px;
-    height:220px;
-    background: #EBD6BD;
+#item_div{
+    text-align: center;
+}
+#item{
+    width: 200px;
+    height: 300px;
+    background-color: white;
+    margin-top: 30px;
+    margin: 60px;
+    display:inline-block;
+    vertical-align:middle;
 }
 
-#payment{  
+#btn_div{
+    text-align: center;
+    margin-top: 500px;
+}
+#buy_btn{  
     width :500px;
     height: 100px;
-    position: relative;
-    left: 720px;
-    top: 550px;
     background-color: #f16751;
     font-size: 3em;
     font-family: cooper;
     color:black; 
     border-radius: 40px;
+}
+
+/* 메인 가는 버튼 */
+#goMain_btn{
+    float: left;
 }
