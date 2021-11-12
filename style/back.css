@@ -1,7 +1,8 @@
+/*배경 css*/
 body{
     background-color:#F9E8BF;
     margin: 0;
-    
+    overflow: hidden;
 }
 #bottom{
     width: 100vw;

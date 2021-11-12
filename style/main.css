@@ -1,3 +1,5 @@
+    /* 메인 화면 */
+    
     /*폰트*/
     @font-face {
         font-family: 'cooper';
@@ -31,11 +33,14 @@
         
         /*text-shadow: -4px 0  #000 ;*/
     }
+
+    /* 버튼 가운데 맞추기 위한 div */
     #menu_div{
         margin-top: 130px;
         text-align: center;
-        
     }
+
+    /* 버튼 */
     #gameStart_btn, #help_btn, #rank_btn{  
         width :380px;
         height: 100px;
@@ -47,6 +52,7 @@
         color: white; 
         border-radius: 40px;
     }
+    
     #rank_div{
         text-align: center;
     }
