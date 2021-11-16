@@ -39,7 +39,7 @@
     height: 50px;
     margin-right: 70px;
     position: absolute;
-    float: right;
+    right: 50px;
     bottom: 120px;
 }
 
