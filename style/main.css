@@ -26,18 +26,13 @@
     /*타이틀*/
     #title{
         margin: 150px auto auto auto;
-        font-size: 8em;
-    
-        font-family: cooper;
+        font-size: 9em;
+        font-family: 'Luckiest Guy', cursive;
         color: #41A541;
         text-align: center;
-        text-shadow:  8px 13px rgba(0, 0, 0, 0.16) ;
-        
-        /*text-shadow: -4px 0  #000 ;*/
+        /*text-shadow:  8px 13px rgba(0, 0, 0, 0.16) ;*/
+        text-shadow: -5px 0  #000 ;
     }
-
-    /* 버튼 가운데 맞추기 위한 div */
-
 
     /* 버튼 */
     #gameStart_btn{  
