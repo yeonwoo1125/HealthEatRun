@@ -1,7 +1,11 @@
+const canvas=document.getElementById('canvas');
+const ctx = document.getElementById('2d');
+
+
 const horizontal = 5; //가로
 const vertical = 4; //세로
 
-<<<<<<< HEAD
+
 //사용할 캔버스 크기 지정
 canvas.width = window.innerWidth ;
 canvas.height = window.innerHeight-105 ;
@@ -48,8 +52,8 @@ document.addEventListener('keydown',function(e){ //이벤트리스너 : 특정 �
         sliding = true;
     }
 })
-=======
+
 //.document.querySelector()는 css선택자. container를 검색(요소를 검색하는것)
 const container = document.querySelector(".container"); 
 
->>>>>>> dde1099c5e757172cf8fa72b1ba668cf55d79f12
+
