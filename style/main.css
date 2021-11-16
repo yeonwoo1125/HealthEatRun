@@ -41,7 +41,7 @@
     }
 
     /* 버튼 */
-    #gameStart_btn, #help_btn, #rank_btn{  
+    #gameStart_btn, #help_btn{  
         width :380px;
         height: 100px;
         margin: 0 auto;
@@ -53,17 +53,6 @@
         border-radius: 40px;
     }
     
-    #rank_div{
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    #storePng{
-        float: right;
-        margin-top: 30px;
-        margin-right: 50px;
-    }
-
     /*버튼 누를 시 효과*/
 #gameStart_btn:hover{
     background-color: blue;
