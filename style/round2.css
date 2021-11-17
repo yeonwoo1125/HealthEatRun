@@ -1,0 +1,26 @@
+
+.card_div{
+    width: 80%;
+    height: 600px;
+    text-align: center;
+}
+
+/* 카드 */ 
+.card{
+    background-color: white;
+    width: 230px;
+    height: 280px;
+    margin-left: 50px;
+    margin-top: 80px;
+    display: inline-block;
+}
+.salad{
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
