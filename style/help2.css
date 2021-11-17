@@ -1,19 +1,17 @@
 /*도움말2 */
 
-#disc{
+#title{
     text-align: center;
     margin: 0 auto; 
-    margin-top: 50px;
-    background-color: white;
-    width: 80%;
-    height: 900px;
+    margin-top: 25px;
     font-size: 4em;
     font-family: 'Jua', sans-serif;
 }
 #rule{
-    margin-top: 50px;
+    text-align: center;
+    margin-top: 30px;
     font-family: 'Jua', sans-serif;
-    font-size: 35px;
+    font-size: 2em;
 }
 #before_btn{
     width: 80px;
