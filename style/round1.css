@@ -16,3 +16,7 @@ body{
     margin: 0 auto;
     perspective: 140px;
 }
+#runningMan{
+    margin-top: -270px;
+    float: left;
+}
