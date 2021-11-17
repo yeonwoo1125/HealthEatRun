@@ -1,10 +1,8 @@
 const canvas=document.getElementById('canvas');
 const ctx = document.getElementById('2d');
 
-
 const horizontal = 5; //가로
 const vertical = 4; //세로
-
 
 //사용할 캔버스 크기 지정
 canvas.width = window.innerWidth ;
