@@ -11,13 +11,12 @@ var foodList=['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','mi
             'salad2','steak2','shake2','oatmeal2','chickenBreast2','tofu2','milk2']; //음식 이름 저장
 var ranArr = new Array(); //랜덤 수 
 
-ran(); //랜덤 수 중복 제거 후 저장
 setId();  //div 요소에 id 생성
 setImg();
 
-for(var i =0; i<cardLen; i++){
+for(var i = 0; i < cardLen; i++){
     card[i].addEventListener("click",()=>{ //card 클래스를 가진 div에 클릭 이벤트 부여
-        
+        clickCnt++;
         selCnt++;
         alert('카드 클릭');
         if(selCnt == 1) clickList[0] = clickId; //클릭한 카드의 아이디를 배열에 저장
@@ -35,21 +34,23 @@ for(var i =0; i<cardLen; i++){
 };
 //값들 초기화
 function reset(){
-    selCnt=0;
+    selCnt = 0;
     clickList[0] ='';
     clickList[1] ='';
 };
+
 function sendId(click_id){
     console.log(click_id);
     clickId = click_id.slice(0,-1);
-
-}
+    //선생님한테 물어보기
+    //document.getElementById(click_id).style.background = "url('../img/round2/'+clickId+'.png') no-repeat center center";
+};
 
 //div에 아이디 부여
 function setId(){
+    ran();
     for(var i=0; i<14; i++){
-        var ran = ranArr[i];
-        card[i].setAttribute('id', foodList[ran]);
+        card[i].setAttribute('id', foodList[ranArr[i]]);
     }
 };
 
@@ -58,14 +59,14 @@ function ran(){
     var tmp;
     var n;
    
-    //전달받은 매개변수 n만큼 배열 생성 ( 1~n )
+    //전달받은 매개변수 n만큼 배열  
     for(var i=0; i<14; i++){
         ranArr.push(i);
     }
 
     //값을 서로 섞기
     for(var i=0; i< ranArr.length ; i++){
-        n = Math.floor(Math.random() *14); //난수발생
+        n = Math.floor(Math.random() *14); 
         tmp = ranArr[i];
         ranArr[i] = ranArr[n];
         ranArr[n] = tmp;
