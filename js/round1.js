@@ -1,9 +1,9 @@
 //캔버스 생성
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerwindow-100;
-canvas.height = window.innerHeight-100;
+canvas.width = window.innerWidth - 100;
+canvas.height = window.innerHeight - 100;
 
 ctx.fillStyle = 'green';
 ctx.fillRect(10,10,100,100);
@@ -13,11 +13,11 @@ var character = {
     x:10,
     y:200,
     width: 50,
-    
+    heigth : 100,
     //draw 메소드
     draw(){
         ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x, this.y, this.width, this.heigth);
     }
 }
 
