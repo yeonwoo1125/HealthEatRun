@@ -1,22 +1,4 @@
 body{
-    background-image: url('../img/round1/health.jpg');
+   background-image: url('../img/round1/health.jpg');
     background-size: cover;
-}
-
-.container{
-    margin-top: 50px;
-    display: grid; /*grid아이템을 사용*/
-    grid-template-columns: auto auto auto auto auto; /* 길이를 설정함 */
-    grid-gap: 10px;
-}
-
-.card{
-    width: 100px;
-    height: 150px;
-    margin: 0 auto;
-    perspective: 140px;
-}
-#runningMan{
-    margin-top: -270px;
-    float: left;
 }
