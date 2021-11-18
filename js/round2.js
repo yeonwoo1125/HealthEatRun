@@ -40,7 +40,9 @@ function reset(){
     clickList[1] ='';
 };
 function sendId(click_id){
-    clickId=click_id;
+    console.log(click_id);
+    clickId = click_id.slice(0,-1);
+
 }
 
 //div에 아이디 부여
