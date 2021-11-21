@@ -13,16 +13,16 @@ img2.src = 'hamburger.png';
 
 //달리는 캐릭터 
 var character = {
-    x:100,
-    y:230,
-    width: 20,
-    heigth : 100, 
+    x:170,
+    y:300,
+    width:50,
+    height : 100, 
 
     //draw 메소드
     draw(){
         ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.heigth);
-        //ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        //ctx.fillRect(this.x, this.y, this.width, this.heigth);
+        ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
     }
 }
 //character.draw();
@@ -34,15 +34,15 @@ class Food{
         //크기는 캐릭터와 동일하지만 위치는 다르게 한다
         this.x = 800;
         this.y = 250;
-        this.width = 60;
-        this.height = 70;
+        this.width = 70;
+        this.height = 50;
     }
     //draw 메소드
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
         ctx.fillStyle='red';
-        ctx.fillRect(this.x,this.y,this.width,this.height);
-        //ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        //ctx.fillRect(this.x,this.y,this.width,this.height);
+        ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
     }
 }
 
@@ -55,14 +55,13 @@ var jumpTime=0; //점프 타이머
 var animation; //animation 효과
 
 function frame(){ //프레임마다 실행을 할 함수
-
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
     animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
     timer++; 
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
 
-    if(timer%144==0){ //120프레임마다 한번 움직이게 하기
+    if(timer%120==0){ //120프레임마다 한번 움직이게 하기
         var food = new Food();
         foodmix.push(food); //foodmix라는 배열에 120 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
     }
@@ -76,8 +75,7 @@ function frame(){ //프레임마다 실행을 할 함수
            //따라서 0-a.width로 바꾼다(화면 밖에 완전히 다 나가게 하기 위해서)
         }  
          a.x--;
-
-         collisonCheck(character,a); //캐릭터와 모든 장애물들 간에 충돌체크를 해야하므로 foreach 안에 넣기
+         collison(character,a); //캐릭터와 모든 장애물들 간에 충돌체크를 해야하므로 foreach 안에 넣기
          a.draw(); 
       
       
@@ -91,7 +89,7 @@ function frame(){ //프레임마다 실행을 할 함수
 
     if(jump==false){
         if(character.y<230){  //y축의 위치가 일정높이에 다다랐을때
-            character.y+=5; //아래로 내려오게(y값을 늘린다)
+            character.y+=2; //아래로 내려오게(y값을 늘린다)
         }
     }
 
@@ -120,12 +118,13 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 })
 
 //충돌체크
-function collisonCheck(character, food){
+function collison(character, food){
     var xCheck = food.x - (character.x + character.width);
     var yCheck = food.y - (character.y + character.height);
+
     if(xCheck < 0 && yCheck < 0){
-        ctx.clearRect(0,0, canvas.width, canvas.height);
+        ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
-        //충돌 시 canvas 클리어 및 애니메이션 종료
+        //충돌 시 canvas 클리어 및 애니메이션을 종료한다
     };
 }
