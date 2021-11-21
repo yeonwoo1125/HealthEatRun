@@ -6,15 +6,77 @@ canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
 var img1 = new Image(); //이미지 컴포넌트임을 명시해준다
-img1.src = 'humanride.png';
+img1.src = '/img/round1/humanride.png';
 
 var img2 = new Image(); //이미지 컴포넌트임을 명시해준다
-img2.src = 'hamburger.png';
+img2.src = '/img/round1/hamburger.png';
+
+function background(assetObj, canvasElement){ //배경 이미지를 표현하는 에셋 인스턴스와 Canvas 요서를 전달받기
+   this.assetObj = assetObj;
+   this.canvasSize = {width: canvasElement.width , height: canvasElement.height};
+   this.canvasContext = canvasElement.getContext("2d"); //canvasElement로부터 렌더링 컨텍스트를 얻음 -> 변수canvasContext에 저장(2d로(2차원))
+   this.moveX = 0; //배경이미지의 이동을 처리하기 위하여 원본 이미지에서 이동할 크기를 저장할 변수이다.
+}
+
+//실제 애니메이션 처리가 이루어지는 startAnimation 메서드
+background.prototype.startAnimation = function(){
+    //캔버스를 다 지우면서 시작
+    this.canvasContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+
+    //drawX 변수 = 원본 이미지 크기에서 moveX를 곱한 값(원본 이미지에서 원하는 부분을 자르게 될 X좌표)
+    var drawX = this.moveX * this.assetObj.backgroundImage.width;
+    
+    //drawWidth 변수 = 원본 이미지에서 drawX를 뺀 값(drawX로부터 이미지 나머지 부분)
+    var drawWidth = this.assetObj.backgroundImage.width - drawX;
+
+    //첫번째 그리기 작업
+    this.canvasContext.drawImage(this.assetObj.backgroundImage, drawX, 0, drawWidth, this.assetObj.background.height, 0,0, drawWidth, this.assetObj.background.height);
+    
+    //두번째 그리기 작업
+    if(drawWidth < this.assetObj.backgroundImage.width){
+        //fillDrawWidth 변수에는 비워진 공간의 너비를 계산하여 그 값을 저장하게 됨
+        //그리고 비워진 공간의 X좌표에 두번째 그리기 작업을 수행하면 두 개의 그리기 작업이 자연스럽게 연결된다.
+        //그리하여 애니메이션 효과가 구현되는 것
+        var fillDrawWidth = this.assetObj.backgroundImage.width- drawWidth;
+        this.canvasContext.drawImage(this.assetObj.backgroundImage, 0,0, fillDrawWidth, this.assetObj.backgroundImage.height, drawWidth, 0, fillDrawWidth, this.drawWidth, this.assetObj.backgroundImage.height);
+    }
+
+    //drawX의 갓을 drawRate만큼 계속 더해가는데, 최대 크기 비율인 1이 될 시점에 다시 0으로 만들어준다
+    //이미지가 처음부터 다시 그려지도록
+    this.moveX = (this.moveX + this.assetObj.moveRate)%1;
+}
+
+var fps = 60; //fps값을 60, 즉 1초에 60번 프레임을 교체하도록 한다
+var background;
+var canvasElement;
+var asset;
+
+function init(){
+
+    canvasElement = document.getElementById("GameCanvas");
+
+    asset = newImage();
+    asset.src = '/img/health.jpg';
+
+    asset.onload = onAssetLoadComplete;
+}
+
+function onAssetLoadComplete(){
+    var assetObj = {backgroundImage: asset, moveRate:0.01}; //drawRate는 이미지의 이동 간격을 나타낸다 0.01의 의미는 프레임이 이동할 때마다 원본 이미지에서 0.01px 이동한다는 의미
+    background = new background(assetObj, canvasElement);
+    setInterval(animationLoop, 1000/fps);
+}
+
+function animationLoop(){
+    background.startAnimation();
+}
+
+window.addEventListener("load", init, false);
 
 //달리는 캐릭터 
 var character = {
-    x:200,
-    y:500,
+    x:500,
+    y:300,
     width:80,
     height : 100, 
 
@@ -32,8 +94,8 @@ var character = {
 class Food{
     constructor(){ 
         //크기는 캐릭터와 동일하지만 위치는 다르게 한다
-        this.x = window.innerWidth-50; 
-        this.y = 450;
+        this.x = 800; 
+        this.y = 550;
         this.width = 70;
         this.height = 70;
     }
@@ -61,9 +123,9 @@ function frame(){ //프레임마다 실행을 할 함수
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
 
-    if(timer%200==0){ //120프레임마다 한번 움직이게 하기
+    if(timer%200==0){ //200프레임마다 한번 움직이게 하기
         var food = new Food();
-        foodmix.push(food); //foodmix라는 배열에 120 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
+        foodmix.push(food); //foodmix라는 배열에 200 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
     }
     //food.draw(); 대신
 
@@ -83,17 +145,17 @@ function frame(){ //프레임마다 실행을 할 함수
 
     //character.y-=2; 를
     if(jump==true){ //jump값이 true가 된다면(space를 누른다면)
-        character.y--; //y가 쭉 올라가게 한다
+        character.y-=4; //y가 쭉 올라가게 한다
         jumpTime+=2; //jumpTime도 증가
     }
 
     if(jump==false){
-        if(character.y<400){  //y축의 위치가 일정높이에 다다랐을때
-            character.y++; //아래로 내려오게(y값을 늘린다)
+        if(character.y<500){  //y축의 위치가 일정높이에 다다랐을때
+            character.y+=5; //아래로 내려오게(y값을 늘린다)
         }
     }
 
-    if(jumpTime>100){ //jumpTime이 50프레임을 넘긴다면 
+    if(jumpTime>50){ //jumpTime이 50프레임을 넘긴다면 
         jump=false; //멈추기(y축의 이동을)
         //여기까지만 하면 멈추기만 하고 다시 jump기능이 작동을 안한다
         jumpTime=0; //그래서 jumptime을 초기화했다
@@ -123,8 +185,10 @@ function collison(character, food){
     var yCheck = food.y - (character.y + character.height);
 
     if(xCheck < 0 && yCheck < 0){
+
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
         //충돌 시 canvas 클리어 및 애니메이션을 종료한다
+
     };
 }
