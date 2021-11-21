@@ -11,8 +11,7 @@ var foodList=['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','mi
             'salad2','steak2','shake2','oatmeal2','chickenBreast2','tofu2','milk2']; //음식 이름 저장
 var ranArr = new Array(); //랜덤 수 
 var chk = new Array(); //가져온 아이디를 2개 저장
-
-setId();  //div 요소에 id 생성
+createDiv();
 
 for(var i = 0; i < cardLen; i++){
    
@@ -72,7 +71,6 @@ function reset(){
 
 //카드 선택 시 이미지 나타남
 function clickCard(click_id){
-
     chk.push(click_id);
     clickId = click_id.slice(0,-1);
     //선생님한테 물어보기
@@ -130,14 +128,21 @@ function clickCard(click_id){
     }
 };
 
-//div에 아이디 부여
-function setId(){
+
+//div 생성
+function createDiv(){
+    var cardDiv = document.getElementById('card_div');
     ran();
     for(var i=0; i<14; i++){
-        card[i].setAttribute('id', foodList[ranArr[i]]);
+        var newDiv = document.createElement('div');
+        newDiv.setAttribute('class','card');
+        newDiv.setAttribute('id',foodList[ranArr[i]]);
+        newDiv.onclick = function(){
+          
+        }
+        cardDiv .appendChild(newDiv);
     }
-};
-
+}
 //랜덤 수 중복제거
 function ran(){
     var tmp;
