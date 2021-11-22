@@ -10,9 +10,17 @@ canvas.height = window.innerHeight-105;
 var runningman = new Image();
 runningman.src="../img/round3/man_right.png";
 
+//배열에 넣어서 랜덤으로 나오게 하기
+var fishBread = new Image();
+fishBread.src = "../img/round3/fishBread.png"
+var eggBread = new Image();
+eggBread.src = "../img/round3/eggBread.png"
+var chikenSkewers = new Image();
+chikenSkewers.src = "../img/round3/chikenSkewers.png";
+
 //움직이는 player obj
 var player = {
-    x : 0,
+    x : canvas.width/2,
     y : 600,
     width : 300,
     height : 220,
@@ -29,10 +37,11 @@ class Food{
         this.x = 0;
         this.y = 0;
         this.width = 100;
-        this.height = 100;
+        this.height = 70;
+        this.speed = 12; //떨어지는 속도
     }
     draw(){
-        ctx.drawImage(runningman, this.x, this.y, this.width, this.height)
+        ctx.drawImage(fishBread, this.x, this.y, this.width, this.height)
     }
 }
 
@@ -40,15 +49,13 @@ class Food{
 document.addEventListener('keydown',function(e){
     if(e.code == "ArrowRight") {
         runningman.src = "../img/round3/man_right.png";
-        player.x += 17;
+        player.x += 20;
         if(player.x > canvas.width) player.x = canvas.width;
-        console.log(player.x);
     }
     if(e.code == "ArrowLeft") {
         runningman.src="../img/round3/man_left.png";
-        player.x -= 17;
+        player.x -= 20;
         if(player.x < 0) player.x = 0
-        console.log(player.x);
     }
 });
 
@@ -64,7 +71,6 @@ function selFood(){
 
 var foodList=[]; //food들을 가지고 있음
 var timer = 0; //프레임 실행 횟수
-var ran_x = Math.floor(Math.random() * canvas.width);
 //게임 시작
 function startGame() {
     requestAnimationFrame(startGame);
@@ -87,8 +93,8 @@ function startGame() {
         //var ran_y = Math.floor(Math.random() * 10);
 
         //좌표 생성 위치는 랜덤, 랜덤한 속도로 바닥에 닿음
-        
-        f.y += 10;
+        //f.x = Math.floor(Math.random() *200);
+        f.y += f.speed;
 
         chkCollison(player,f); //모든 장애물에 대해 충돌체크
         f.draw();
