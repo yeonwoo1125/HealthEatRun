@@ -6,10 +6,10 @@ canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
 var img1 = new Image(); //이미지 컴포넌트임을 명시해준다
-img1.src = '/img/round1/humanride.png';
+img1.src = '../img/round1/humanride.png';
 
 var img2 = new Image(); //이미지 컴포넌트임을 명시해준다
-img2.src = '/img/round1/hamburger.png';
+img2.src = '../img/round1/hamburger.png';
 
 function background(assetObj, canvasElement){ //배경 이미지를 표현하는 에셋 인스턴스와 Canvas 요서를 전달받기
    this.assetObj = assetObj;
