@@ -27,18 +27,18 @@ background.prototype.startAnimation = function(){
     var drawX = this.moveX * this.assetObj.backgroundImage.width;
     
     //drawWidth 변수 = 원본 이미지에서 drawX를 뺀 값(drawX로부터 이미지 나머지 부분)
-    var drawWidth = this.assetObj.backgroundImage.width - drawX;
+    var drawWidth = this.assetObj.bgImage.width - drawX;
 
     //첫번째 그리기 작업
     this.canvasContext.drawImage(this.assetObj.bgImage, drawX, 0, drawWidth, this.assetObj.bgImage.height, 0,0, drawWidth, this.assetObj.bgImage.height);
     
     //두번째 그리기 작업
-    if(drawWidth < this.assetObj.backgroundImage.width){
+    if(drawWidth < this.assetObj.bgImage.width){
         //fillDrawWidth 변수에는 비워진 공간의 너비를 계산하여 그 값을 저장하게 됨
         //그리고 비워진 공간의 X좌표에 두번째 그리기 작업을 수행하면 두 개의 그리기 작업이 자연스럽게 연결된다.
         //그리하여 애니메이션 효과가 구현되는 것
-        var fillDrawWidth = this.assetObj.backgroundImage.width- drawWidth;
-        this.canvasContext.drawImage(this.assetObj.backgroundImage, 0,0, fillDrawWidth, this.assetObj.backgroundImage.height, drawWidth, 0, fillDrawWidth, this.drawWidth, this.assetObj.backgroundImage.height);
+        var fillDrawWidth = this.assetObj.bgImage.width- drawWidth;
+        this.canvasContext.drawImage(this.assetObj.bgImage, 0,0, fillDrawWidth, this.assetObj.bgImage.height, drawWidth, 0, fillDrawWidth, this.drawWidth, this.assetObj.bgImage.height);
     }
 
     //drawX의 갓을 drawRate만큼 계속 더해가는데, 최대 크기 비율인 1이 될 시점에 다시 0으로 만들어준다
@@ -56,14 +56,14 @@ function init(){
     canvasElement = document.getElementById("GameCanvas");
 
     asset = newImage();
-    asset.src = '/img/health.jpg';
+    asset.src = 'img/health.jpg';
 
     asset.onload = onAssetLoadComplete;
 }
 
 function onAssetLoadComplete(){
-    var assetObj = {backgroundImage: asset, moveRate:0.01}; //drawRate는 이미지의 이동 간격을 나타낸다 0.01의 의미는 프레임이 이동할 때마다 원본 이미지에서 0.01px 이동한다는 의미
-    background = new background(assetObj, canvasElement);
+    var assetObj = {bgImage: asset, moveRate:0.01}; //drawRate는 이미지의 이동 간격을 나타낸다 0.01의 의미는 프레임이 이동할 때마다 원본 이미지에서 0.01px 이동한다는 의미
+    background = new Background(assetObj, canvasElement);
     setInterval(animationLoop, 1000/fps);
 }
 
