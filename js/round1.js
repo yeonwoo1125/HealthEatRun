@@ -30,7 +30,7 @@ background.prototype.startAnimation = function(){
     var drawWidth = this.assetObj.backgroundImage.width - drawX;
 
     //첫번째 그리기 작업
-    this.canvasContext.drawImage(this.assetObj.backgroundImage, drawX, 0, drawWidth, this.assetObj.background.height, 0,0, drawWidth, this.assetObj.background.height);
+    this.canvasContext.drawImage(this.assetObj.bgImage, drawX, 0, drawWidth, this.assetObj.bgImage.height, 0,0, drawWidth, this.assetObj.bgImage.height);
     
     //두번째 그리기 작업
     if(drawWidth < this.assetObj.backgroundImage.width){
