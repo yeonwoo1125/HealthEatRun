@@ -11,6 +11,8 @@ img1.src = '../img/round1/humanride.png';
 var img2 = new Image(); //이미지 컴포넌트임을 명시해준다
 img2.src = '../img/round1/hamburger.png';
 
+var img3 = new Image(); //이미지 컴포넌트임을 명시해준다
+img3.src = '../img/round1/M.png';
 function Background(assetObj, canvasElement){ //배경 이미지를 표현하는 에셋 인스턴스와 Canvas 요서를 전달받기
     this.assetObj = assetObj;
     this.canvasSize = {width: canvasElement.width , height: canvasElement.height};
@@ -97,6 +99,7 @@ class Food{
         ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        ctx.drawImage(img3, this.x, this.y, this.width, this.height); 
     }
 }
 
