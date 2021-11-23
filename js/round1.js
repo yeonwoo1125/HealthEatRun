@@ -11,52 +11,46 @@ img1.src = '../img/round1/humanride.png';
 var img2 = new Image(); //이미지 컴포넌트임을 명시해준다
 img2.src = '../img/round1/hamburger.png';
 
-function background(assetObj, canvasElement){ //배경 이미지를 표현하는 에셋 인스턴스와 Canvas 요서를 전달받기
-   this.assetObj = assetObj;
-   this.canvasSize = {width: canvasElement.width , height: canvasElement.height};
-   this.canvasContext = canvasElement.getContext("2d"); //canvasElement로부터 렌더링 컨텍스트를 얻음 -> 변수canvasContext에 저장(2d로(2차원))
-   this.moveX = 0; //배경이미지의 이동을 처리하기 위하여 원본 이미지에서 이동할 크기를 저장할 변수이다.
-}
-
-//실제 애니메이션 처리가 이루어지는 startAnimation 메서드
-background.prototype.startAnimation = function(){
+function Background(assetObj, canvasElement){ //배경 이미지를 표현하는 에셋 인스턴스와 Canvas 요서를 전달받기
+    this.assetObj = assetObj;
+    this.canvasSize = {width: canvasElement.width , height: canvasElement.height};
+    this.canvasContext = canvasElement.getContext("2d"); //canvasElement로부터 렌더링 컨텍스트를 얻음 -> 변수canvasContext에 저장(2d로(2차원))
+    this.moveX = 0; //배경이미지의 이동을 처리하기 위하여 원본 이미지에서 이동할 크기를 저장할 변수이다.
+ }
+ //실제 애니메이션 처리가 이루어지는 startAnimation 메서드
+ Background.prototype.startAnimation = function(){
     //캔버스를 다 지우면서 시작
     this.canvasContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+     //drawX 변수 = 원본 이미지 크기에서 moveX를 곱한 값(원본 이미지에서 원하는 부분을 자르게 될 X좌표)
+     var drawX = this.moveX * this.assetObj.bgImage.width;
+     
+     //drawWidth 변수 = 원본 이미지에서 drawX를 뺀 값(drawX로부터 이미지 나머지 부분)
+     var drawWidth = this.assetObj.bgImage.width - drawX;
+ 
+     //첫번째 그리기 작업
+     this.canvasContext.drawImage(this.assetObj.bgImage, drawX, 0, drawWidth, this.assetObj.bgImage.height, 0,0, drawWidth, this.assetObj.bgImage.height);
 
-    //drawX 변수 = 원본 이미지 크기에서 moveX를 곱한 값(원본 이미지에서 원하는 부분을 자르게 될 X좌표)
-    var drawX = this.moveX * this.assetObj.backgroundImage.width;
-    
-    //drawWidth 변수 = 원본 이미지에서 drawX를 뺀 값(drawX로부터 이미지 나머지 부분)
-    var drawWidth = this.assetObj.bgImage.width - drawX;
-
-    //첫번째 그리기 작업
-    this.canvasContext.drawImage(this.assetObj.bgImage, drawX, 0, drawWidth, this.assetObj.bgImage.height, 0,0, drawWidth, this.assetObj.bgImage.height);
-    
-    //두번째 그리기 작업
-    if(drawWidth < this.assetObj.bgImage.width){
+     //두번째 그리기 작업
+     if(drawWidth < this.assetObj.bgImage.width){
         //fillDrawWidth 변수에는 비워진 공간의 너비를 계산하여 그 값을 저장하게 됨
         //그리고 비워진 공간의 X좌표에 두번째 그리기 작업을 수행하면 두 개의 그리기 작업이 자연스럽게 연결된다.
         //그리하여 애니메이션 효과가 구현되는 것
         var fillDrawWidth = this.assetObj.bgImage.width- drawWidth;
         this.canvasContext.drawImage(this.assetObj.bgImage, 0,0, fillDrawWidth, this.assetObj.bgImage.height, drawWidth, 0, fillDrawWidth, this.drawWidth, this.assetObj.bgImage.height);
     }
-
-    //drawX의 갓을 drawRate만큼 계속 더해가는데, 최대 크기 비율인 1이 될 시점에 다시 0으로 만들어준다
-    //이미지가 처음부터 다시 그려지도록
-    this.moveX = (this.moveX + this.assetObj.moveRate)%1;
+    // moveX 값을 moveRate만큼 계속 더해가는데, 최대 크기 비율인 1이 될 시점에 다시 0으로 만들어 줌으로써 이미지가 처음부터 다시 그려지도록 한다
+    this.moveX=(this.moveX+this.assetObj.moveRate)%1;
 }
+    var fps = 30; //fps값을 30, 즉 1초에 30번 프레임을 교체하도록 한다
+    var background
+    var canvasElement;
+    var asset;
+    
+    function init(){
 
-var fps = 60; //fps값을 60, 즉 1초에 60번 프레임을 교체하도록 한다
-var background;
-var canvasElement;
-var asset;
-
-function init(){
-
-    canvasElement = document.getElementById("GameCanvas");
-
-    asset = newImage();
-    asset.src = 'img/health.jpg';
+        canvasElement = document.getElementById("canvas");
+        asset = new Image();
+    asset.src = '../img/round1/health.jpg';
 
     asset.onload = onAssetLoadComplete;
 }
@@ -66,14 +60,12 @@ function onAssetLoadComplete(){
     background = new Background(assetObj, canvasElement);
     setInterval(animationLoop, 1000/fps);
 }
-
 function animationLoop(){
     background.startAnimation();
 }
 
 window.addEventListener("load", init, false);
-
-//달리는 캐릭터 
+     //달리는 캐릭터 
 var character = {
     x:500,
     y:300,
@@ -192,3 +184,4 @@ function collison(character, food){
 
     };
 }
+ 
