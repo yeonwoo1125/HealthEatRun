@@ -2,3 +2,15 @@ body{
     background-image: url('../img/round1/health.jpg');
     background-size: cover;
 }
+
+#myProgress{
+    width:400px;
+    /*뒷배경 흰색으로 */
+    background-color: #ddd; 
+}
+
+#mybar{
+   width: 400px;
+   height: 30px;
+   background-color: rgb(68, 204, 141);
+}
