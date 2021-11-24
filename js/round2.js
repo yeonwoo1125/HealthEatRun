@@ -1,23 +1,26 @@
 //카드 클래스를 가진 엘리먼트 모두 가져오기
 const card = document.querySelectorAll(".card");
 
-var score=0; //짝을 맞춘 갯수
+var score = 0; //짝을 맞춘 갯수
 var selCnt = 0; //현재 뒤집힌 카드 갯수
 var clickCnt = 0; //카드 총선택 횟수
 var cardLen = card.length; //카드의 수
 var clickId; //클릭한 카드의 아이디값을 가져옴
-var clickList =['','']; //클릭한 아이디 두개 저장
-var foodList=['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','milk1', 
+var clickList = ['','']; //클릭한 아이디 두개 저장
+var foodList = ['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','milk1', 
             'salad2','steak2','shake2','oatmeal2','chickenBreast2','tofu2','milk2']; //음식 이름 저장
 var ranArr = new Array(); //랜덤 수 
 var chk = new Array(); //가져온 아이디를 2개 저장
-createDiv();
 
+//createDiv();
+setId();
 for(var i = 0; i < cardLen; i++){
-   
     card[i].addEventListener("click",()=>{ //card 클래스를 가진 div에 클릭 이벤트 부여
-        clickCnt++;
+        nextRound();
+        endRound();
+
         selCnt++;
+
         if(selCnt == 1) {
             clickList[0] = clickId; //클릭한 카드의 아이디를 배열에 저장
         }
@@ -27,41 +30,80 @@ for(var i = 0; i < cardLen; i++){
 
         if(selCnt == 2 && clickList[0] == clickList[1]){
             score++;
-            createNextBtn();
+            //createNextBtn();
             reset();
-            document.getElementById(chk[0]).style.backgroundColor = 'red';
-            document.getElementById(chk[1]).style.backgroundColor = 'red';
+            document.getElementById(chk[0]).style.backgroundColor = '#D12F2C';
+            document.getElementById(chk[1]).style.backgroundColor = '#D12F2C';
             chk.splice(0,2);
+            nextRound();
         } 
         else if(selCnt == 2){
+            clickCnt++;
             reset();
             setTimeout(function(){
                 document.getElementById(chk[0]).style.background = "url('')";
                 document.getElementById(chk[1]).style.background = "url('')";
-                document.getElementById(chk[0]).style.backgroundColor = 'aqua';
-                document.getElementById(chk[1]).style.backgroundColor = 'aqua';
-                document.getElementsByClassName('card').style
+                document.getElementById(chk[0]).style.backgroundColor = '#734434';
+                document.getElementById(chk[1]).style.backgroundColor = '#734434';
                 chk.splice(0,2);
             },1000);
         } 
-
     });
 };
 
-//게임이 끝난 후 다음으로 이동하는 버튼 만들기
-function createNextBtn(){
+//게임이 끝난 후 다음 라운드로 이동
+function nextRound(){
     if(score == 7){
-        var linkRound3 = document.createElement('a');
-        linkRound3.href='../html/round3.html';
-        document.body.appendChild(linkRound3);
-    
-        var nextBtn = document.createElement('button');
-        nextBtn.setAttribute('id','next_btn');
-        nextBtn.innerHTML ="다음으로";
-        linkRound3.appendChild(nextBtn);
+        var newDiv = document.createElement('div');
+        newDiv.setAttribute('id','completeRound');
+        newDiv.innerHTML ="GO NEXT ROUND!";
+
+        document.body.appendChild(newDiv);
+
+        setTimeout(function(){ //2초 후 페이지 이동
+            location.href = "../html/round3.html";
+        } ,2000);
     }
 };
 
+//게임 실패 후 띄워지는 버튼
+function endRound(){
+    if(clickCnt == 20){
+        var newDiv = document.createElement('div');
+        newDiv.setAttribute('id','failRound');
+        newDiv.innerHTML ="GAME OVER";
+        document.body.appendChild(newDiv);
+
+        var btnDiv = document.createElement('div');
+        btnDiv.setAttribute('id','btnDiv');
+        document.body.appendChild(btnDiv);
+
+        var mainBtn = document.createElement('button');
+        mainBtn.setAttribute('id','goMainBtn');
+        mainBtn.innerHTML = "Main";
+        mainBtn.addEventListener('click',()=>{
+            location.href = "../html/main.html";
+        });
+        btnDiv.appendChild(mainBtn);
+
+        var retryBtn = document.createElement('button');
+        retryBtn.setAttribute('id','retryBtn');
+        retryBtn.addEventListener('click',()=>{
+            location.href = "../html/round1.html";
+        });
+        retryBtn.innerHTML = "Retry";
+        btnDiv.appendChild(retryBtn);
+
+    }
+}
+
+//카드에 아이디 부여
+function setId(){
+    ran();
+    for(var i=0; i<14; i++){
+        card[i].setAttribute('id',foodList[ranArr[i]]);
+    }
+}
 //값들 초기화
 function reset(){
     selCnt = 0;
@@ -69,13 +111,12 @@ function reset(){
     clickList[1] ='';
 };
 
-//카드 선택 시 이미지 나타남
 function clickCard(click_id){
     chk.push(click_id);
     clickId = click_id.slice(0,-1);
-    //선생님한테 물어보기
-    //document.getElementById(click_id).style.background = "url('../img/round2/'+clickId+'.png') no-repeat center center";
 
+    //document.getElementById(click_id).style.background = `url('../img/round2/'${clickId}'.png') no-repeat center center`;
+   
     if(click_id =="salad1"){
         document.getElementById('salad1').style.background = "url('../img/round2/salad.png') no-repeat center center";
         document.getElementById('salad1').style.backgroundSize = "230px 230px";
@@ -125,24 +166,25 @@ function clickCard(click_id){
     else if(click_id == "shake2"){
         document.getElementById('shake2').style.background = "url('../img/round2/shake.png') no-repeat center center";
         document.getElementById('shake2').style.backgroundSize = "100px 200px";
-    }
+    } 
 };
 
+// function createDiv(){
+//     var cardDiv = document.getElementById('card_div');
+//     ran();
+//     for(var i=0; i<14; i++){
+//         var newDiv = document.createElement('div');
+//         newDiv.setAttribute('class','card');
+//         newDiv.setAttribute('id',foodList[ranArr[i]]);
+//         newDiv.onclick = clickCard;
+//         //console.log(newDiv, clickCardFunc);
+        
+//         cardDiv.appendChild(newDiv);
+//     }
+// }
 
-//div 생성
-function createDiv(){
-    var cardDiv = document.getElementById('card_div');
-    ran();
-    for(var i=0; i<14; i++){
-        var newDiv = document.createElement('div');
-        newDiv.setAttribute('class','card');
-        newDiv.setAttribute('id',foodList[ranArr[i]]);
-        newDiv.onclick = function(){
-          
-        }
-        cardDiv .appendChild(newDiv);
-    }
-}
+//카드 선택 시 이미지 나타남
+
 //랜덤 수 중복제거
 function ran(){
     var tmp;
@@ -158,6 +200,7 @@ function ran(){
         n = Math.floor(Math.random() *14); 
         tmp = ranArr[i];
         ranArr[i] = ranArr[n];
-        ranArr[n] = tmp;
+        ranArr[n] = tmp; 
     }
 };
+ 
