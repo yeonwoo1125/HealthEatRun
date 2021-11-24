@@ -6,6 +6,8 @@ const ctx = canvas.getContext('2d');
 //canvas 크기
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight-105;
+const cw = canvas.width;
+const ch = canvas.height;
 
 var runningman = new Image();
 runningman.src="../img/round3/man_right.png";
@@ -21,9 +23,9 @@ chikenSkewers.src = "../img/round3/chikenSkewers.png";
 //움직이는 player obj
 var player = {
     x : canvas.width/2,
-    y : 600,
-    width : 300,
-    height : 220,
+    y : 619,
+    width : 200,
+    height : 200,
     draw(){
         //ctx.fillStyle="blue";
         //ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -38,10 +40,17 @@ class Food{
         this.y = 0;
         this.width = 100;
         this.height = 70;
-        this.speed = 12; //떨어지는 속도
+        this.speed = Math.floor(Math.random()*10+3); //떨어지는 속도
     }
-    draw(){
+    draw(){        //배열에 장애물 넣음
         ctx.drawImage(fishBread, this.x, this.y, this.width, this.height)
+        /*var ran = Math.floor(Math.random()*3);
+        if(ran == 0) 
+            ctx.drawImage(fishBread, this.x, this.y, this.width, this.height)
+        else if(ran == 1)
+            ctx.drawImage(eggBread, this.x+200, this.y, this.width, this.height)
+        else 
+            ctx.drawImage(chikenSkewers, this.x+400, this.y, this.width, this.height) */
     }
 }
 
@@ -50,7 +59,7 @@ document.addEventListener('keydown',function(e){
     if(e.code == "ArrowRight") {
         runningman.src = "../img/round3/man_right.png";
         player.x += 20;
-        if(player.x > canvas.width) player.x = canvas.width;
+        if(player.x > window.innerWidth) player.x = window.innerWidth;
     }
     if(e.code == "ArrowLeft") {
         runningman.src="../img/round3/man_left.png";
@@ -64,12 +73,14 @@ function chkCollison(player, food) {
     
 }
 
-//여러개의 food 중 그려질 food 선택
+//여러개의 food 중 그려질 food 선택e
 function selFood(){
 
 }
 
 var foodList=[]; //food들을 가지고 있음
+
+var cnt=0;
 var timer = 0; //프레임 실행 횟수
 //게임 시작
 function startGame() {
@@ -78,12 +89,10 @@ function startGame() {
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
 
-    var cnt=0;
-    if(timer % 144 === 0){ //180프레임 마다 장애물 그림
+    if(timer % 144 == 0){ //180프레임 마다 장애물 그림
         var food = new Food();
-        
-        foodList.push(food); //배열에 장애물 넣음
-        cnt++;
+        foodList.push(food);
+        console.log(food);
     }
 
     foodList.forEach((f,i,fl)=>{
@@ -98,8 +107,19 @@ function startGame() {
 
         chkCollison(player,f); //모든 장애물에 대해 충돌체크
         f.draw();
+        cnt++;
     });
+
+
     player.draw();
 }
 
+//게임의 진행도를 나타냄
+function progressBar(){
+    const progress = document.getElementById('progress')
+    progress.setAttribute('value',timer)
+    document.body.appendChild(progress);
+
+}
+//progressBar();
 startGame();
