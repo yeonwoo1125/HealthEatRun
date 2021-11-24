@@ -5,13 +5,13 @@
 
 /* 카드 */ 
 .card{
-    background-color: aqua;
+    background-color: #734434;
     width: 160px;
     height: 210px;
-    margin-left: 50px;
+    margin-left: 60px;
     margin-top: 80px;
     display: inline-block;
-    border: 1px solid black;
+    border: 3px solid black;
 }
 
 #next_btn{
@@ -22,4 +22,53 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, 0%);
+}
+
+#completeRound{
+    width: 500px;
+    height: 300px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-250px;
+    margin-top:-250px;
+
+    text-align: center;
+    font-size: 7em;
+    font-family: 'Luckiest Guy', cursive;
+}
+
+#failRound{
+    width: 1000px;
+    height: 300px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-500px;
+    margin-top:-300px;
+
+    font-style: red;
+    text-align: center;
+    font-size: 7em;
+    font-family: 'Luckiest Guy', cursive; 
+}
+
+#btnDiv{
+    width: 100vw;
+    height: 200px;
+    position:absolute;
+    top: 50%;
+
+    text-align: center;
+}
+
+
+#goMainBtn, #retryBtn{
+    width: 170px;
+    height: 80px;
+    background-color: white;
+
+    margin: 70px;
+    font-size: 2em;
+    font-family: 'Luckiest Guy', cursive;
 }
