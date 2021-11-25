@@ -1,6 +1,11 @@
 body{
-    background-image: url('../img/round1/health.jpg');
-    background-size: cover;
+    /*background-image: url('../img/round1/health.jpg');
+    background-size: cover;*/
+    height:700px;
+    background: url('../img/round1/health(2).jpg') 0 center/ 1500px repeat-x;
+    /* movebg라는 키프레임을 발생시키는데 100%까지 발생되는 시간은 2초, 일정하게 진행하고(linear), 무한 반복을 한다(infinite)*/
+    animation: movebg 6s linear infinite; 
+   
 }
 
 #myProgress{
@@ -13,4 +18,15 @@ body{
    width: 400px;
    height: 30px;
    background-color: rgb(68, 204, 141);
+}
+
+.moving{
+    /*width:500px;*/
+   
+}
+
+/*keyframes의 이름은 movebg이고 0%일때 정화면, 100%일때 가로넓이 값인 -500px로 위치 변경*/
+@keyframes movebg{
+    0% {background-position:0 center;}
+    100% {background-position:  -1500px center;}
 }
