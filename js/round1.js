@@ -21,13 +21,20 @@ var character = {
     y:300,
     width:80,
     height : 100, 
-
+    
     //draw 메소드
     draw(){
         ctx.fillStyle = 'green';
-        //ctx.fillRect(this.x, this.y, this.width, this.heigth);
+     
         ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
     }
+}
+
+var characterhitbox={
+    x:500,
+    y:300,
+    width:60,
+    height: 50,
 }
 //character.draw();
 
@@ -50,7 +57,7 @@ class Food{
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
         ctx.fillStyle='red';
-        //ctx.fillRect(this.x,this.y,this.width,this.height);
+        ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
         ctx.drawImage(img3, this.x1, this.y1, this.width1, this.height1); 
     }
@@ -130,11 +137,11 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
 //충돌체크
 function collison(character, food){
-    var xCheck = food.x - (character.x + character.width);
-    var yCheck = food.y - (character.y + character.height);
-    var x1Check = food.x1 - (character.x + character.width);
-    var y1Check = food.y1 - (character.y + character.height);
-    if(xCheck < 0 && yCheck < 0){
+    var xCheck = food.x - (characterhitbox.x + characterhitbox.width);
+    var yCheck = food.y - (characterhitbox.y + characterhitbox.height);
+    var x1Check = food.x1 - (characterhitbox.x + characterhitbox.width);
+    var y1Check = food.y1 - (characterhitbox.y + characterhitbox.height);
+    if(xCheck < 0 || yCheck < 0){
 
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
