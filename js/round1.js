@@ -57,7 +57,7 @@ class Food{
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
         ctx.fillStyle='red';
-        ctx.fillRect(this.x,this.y,this.width,this.height);
+        //ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
         ctx.drawImage(img3, this.x1, this.y1, this.width1, this.height1); 
     }
