@@ -33,8 +33,8 @@ var character = {
 var characterhitbox={
     x:500,
     y:300,
-    width:60,
-    height: 50,
+    width:55,
+    height: 55,
 }
 //character.draw();
 
@@ -61,6 +61,13 @@ class Food{
         ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
         ctx.drawImage(img3, this.x1, this.y1, this.width1, this.height1); 
     }
+   
+}
+var Foodhitbox={
+    x:500,
+    y:300,
+    width:65,
+    height: 55,
 }
 
 var food = new Food();
@@ -137,8 +144,8 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
 //충돌체크
 function collison(character, food){
-    var xCheck = food.x - (characterhitbox.x + characterhitbox.width);
-    var yCheck = food.y - (characterhitbox.y + characterhitbox.height);
+    var xCheck = food.x+10 - (characterhitbox.x + characterhitbox.width);
+    var yCheck = food.y+10 - (characterhitbox.y + characterhitbox.height);
     var x1Check = food.x1 - (characterhitbox.x + characterhitbox.width);
     var y1Check = food.y1 - (characterhitbox.y + characterhitbox.height);
     if(xCheck < 0 || yCheck < 0){
