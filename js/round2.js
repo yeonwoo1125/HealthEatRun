@@ -15,17 +15,20 @@ let chk = new Array(); //가져온 아이디를 2개 저장
 const currentCard = new Audio(); // Aduio 객체 생성 \
 currentCard.src = "../music/띠링.mp3"; // 음원 파일 설정
 
+let timer;
 setId();
 for(let i = 0; i < cardLen; i++){
     card[i].addEventListener("click",()=>{ //card 클래스를 가진 div에 클릭 이벤트 부여
+        //document.getElementById(this).setAttribute('disabled','disabled');
         nextRound();
         endRound();
-
+        clickCnt++;
         selCnt++;
 
         //클릭한 카드의 아이디를 배열에 저장
         if(selCnt == 1) {
             clickList[0] = clickId; 
+
         }
         else if(selCnt == 2) {
             clickList[1] = clickId;
@@ -35,26 +38,25 @@ for(let i = 0; i < cardLen; i++){
         if(selCnt == 2 && clickList[0] == clickList[1]){
             currentCard.play(); // 음원 재생 
             score++;
-            //createNextBtn();
             reset();
             document.getElementById(chk[0]).style.backgroundColor = '#D12F2C';
             document.getElementById(chk[1]).style.backgroundColor = '#D12F2C';
+            document.getElementById(chk[0]).setAttribute("disabled", "disabled");
+            document.getElementById(chk[1]).style.backgroundColor = '#D12F2C';
+            document.getElementById(chk[1]).setAttribute("disabled", "disabled");
             chk.splice(0,2);
             nextRound();
         } 
-        else if(selCnt == 1){
-
-        }
         else if(selCnt == 2){
-            clickCnt++;
             reset();
             setTimeout(function(){
+                document.getElementById(chk[0]).style.backgroundColor = '#734434';
                 document.getElementById(chk[0]).style.background = "url('')";
                 document.getElementById(chk[1]).style.background = "url('')";
                 document.getElementById(chk[0]).style.backgroundColor = '#734434';
                 document.getElementById(chk[1]).style.backgroundColor = '#734434';
                 chk.splice(0,2);
-            },1000);
+            },1300);
         } 
     });
 };
