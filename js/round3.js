@@ -22,7 +22,7 @@ chikenSkewers.src = "../img/round3/chikenSkewers.png";
 
 //움직이는 player obj
 var player = {
-    x : canvas.width/2,
+    x : canvas.width/2-100,
     y : 619,
     width : 200,
     height : 200,
