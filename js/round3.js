@@ -36,7 +36,7 @@ var player = {
 
 class Food{
     constructor(){
-        this.x = 0;
+        this.x = Math.floor(Math.random()*1200); 
         this.y = 0;
         this.width = 100;
         this.height = 70;
@@ -80,8 +80,9 @@ function selFood(){
 
 var foodList=[]; //food들을 가지고 있음
 
-var cnt=0;
+var cnt = 0;
 var timer = 0; //프레임 실행 횟수
+
 //게임 시작
 function startGame() {
     requestAnimationFrame(startGame);
@@ -92,17 +93,13 @@ function startGame() {
     if(timer % 144 == 0){ //180프레임 마다 장애물 그림
         var food = new Food();
         foodList.push(food);
-        console.log(food);
     }
 
     foodList.forEach((f,i,fl)=>{
         //장애물의 y좌표가 0보다 작을 시 제거함
         if(f.y < 0) fl.splice(i,1);
 
-        //var ran_y = Math.floor(Math.random() * 10);
-
         //좌표 생성 위치는 랜덤, 랜덤한 속도로 바닥에 닿음
-        //f.x = Math.floor(Math.random() *200);
         f.y += f.speed;
 
         chkCollison(player,f); //모든 장애물에 대해 충돌체크
