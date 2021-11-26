@@ -1,8 +1,6 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
 
-//var runningman = document.getElementById("runman");
-
 //canvas 크기
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight-105;
@@ -13,12 +11,14 @@ var runningman = new Image();
 runningman.src="../img/round3/man_right.png";
 
 //배열에 넣어서 랜덤으로 나오게 하기
-var fishBread = new Image();
-fishBread.src = "../img/round3/fishBread.png"
-var eggBread = new Image();
+const fishBread = new Image();
+fishBread.src = "../img/round3/fishBread.png";
+const eggBread = new Image();
 eggBread.src = "../img/round3/eggBread.png"
-var chikenSkewers = new Image();
-chikenSkewers.src = "../img/round3/chikenSkewers.png";
+const chikenSkewers = new Image();
+chikenSkewers.src = "../img/round3/chikenSkewers.png"
+
+const dropFoodList = new Array(fishBread,eggBread,chikenSkewers);
 
 //움직이는 player obj
 var player = {
@@ -28,11 +28,11 @@ var player = {
     height : 200,
     draw(){
         //ctx.fillStyle="blue";
-        //ctx.fillRect(this.x, this.y, this.width, this.height);
+        //ctx.fillRect(this.x, this.y, this.width, this.height); //히트박스 개념
         ctx.drawImage(runningman, this.x, this.y, this.width, this.height);
     }
 };
-//player.draw();
+
 
 class Food{
     constructor(){
@@ -41,9 +41,10 @@ class Food{
         this.width = 100;
         this.height = 70;
         this.speed = Math.floor(Math.random()*10+3); //떨어지는 속도
+        this.foodImg= dropFoodList[Math.floor(Math.random()*3)]
     }
     draw(){        //배열에 장애물 넣음
-        ctx.drawImage(fishBread, this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.foodImg, this.x, this.y, this.width, this.height)
         /*var ran = Math.floor(Math.random()*3);
         if(ran == 0) 
             ctx.drawImage(fishBread, this.x, this.y, this.width, this.height)
