@@ -141,7 +141,7 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
    else if(e.code =='ArrowDown') { //아래화살표 -> 슬라이딩
     img1.src = "../img/round1/slideMan.png"; //키보드 누르면 아래로 가는 이미지 변경
     character.y+=30; //슬라이딩하면 밑으로 가는 것 같은 효과
-    setInterval(function(){
+    setInterval(function(){ //1.5초 후 함수 안에 든 코드 실행함
         img1.src = '../img/round1/humanride.png';
         character.y-=30;
     },1500); //1.5초 후 원상복구
