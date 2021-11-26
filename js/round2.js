@@ -1,23 +1,22 @@
 //카드 클래스를 가진 엘리먼트 모두 가져오기
 const card = document.querySelectorAll(".card");
 
-var score = 0; //짝을 맞춘 갯수
-var selCnt = 0; //현재 뒤집힌 카드 갯수
-var clickCnt = 0; //카드 총선택 횟수
+let score = 0; //짝을 맞춘 갯수
+let selCnt = 0; //현재 뒤집힌 카드 갯수
+let clickCnt = 0; //카드 총선택 횟수
 const cardLen = card.length; //카드의 수
-var clickId; //클릭한 카드의 아이디값을 가져옴
-var clickList = ['','']; //클릭한 아이디 두개 저장
-var foodList = ['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','milk1', 
+let clickId; //클릭한 카드의 아이디값을 가져옴
+let clickList = ['','']; //클릭한 아이디 두개 저장
+let foodList = ['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','milk1', 
             'salad2','steak2','shake2','oatmeal2','chickenBreast2','tofu2','milk2']; //음식 이름 저장
-var ranArr = new Array(); //랜덤 수 
-var chk = new Array(); //가져온 아이디를 2개 저장
+let ranArr = new Array(); //랜덤 수 
+let chk = new Array(); //가져온 아이디를 2개 저장
 
 const currentCard = new Audio(); // Aduio 객체 생성 \
 currentCard.src = "../music/띠링.mp3"; // 음원 파일 설정
 
-
 setId();
-for(var i = 0; i < cardLen; i++){
+for(let i = 0; i < cardLen; i++){
     card[i].addEventListener("click",()=>{ //card 클래스를 가진 div에 클릭 이벤트 부여
         nextRound();
         endRound();
@@ -63,7 +62,7 @@ for(var i = 0; i < cardLen; i++){
 //게임이 끝난 후 다음 라운드로 이동
 function nextRound(){
     if(score == 7){
-        var newDiv = document.createElement('div');
+        let newDiv = document.createElement('div');
         newDiv.setAttribute('id','completeRound');
         newDiv.innerHTML ="GO NEXT ROUND!";
 
@@ -78,16 +77,16 @@ function nextRound(){
 //게임 실패 후 띄워지는 버튼
 function endRound(){
     if(clickCnt == 20){
-        var newDiv = document.createElement('div');
+        let newDiv = document.createElement('div');
         newDiv.setAttribute('id','failRound');
         newDiv.innerHTML ="GAME OVER";
         document.body.appendChild(newDiv);
 
-        var btnDiv = document.createElement('div');
+        let btnDiv = document.createElement('div');
         btnDiv.setAttribute('id','btnDiv');
         document.body.appendChild(btnDiv);
 
-        var mainBtn = document.createElement('button');
+        let mainBtn = document.createElement('button');
         mainBtn.setAttribute('id','goMainBtn');
         mainBtn.innerHTML = "Main";
         mainBtn.addEventListener('click',()=>{
@@ -95,7 +94,7 @@ function endRound(){
         });
         btnDiv.appendChild(mainBtn);
 
-        var retryBtn = document.createElement('button');
+        let retryBtn = document.createElement('button');
         retryBtn.setAttribute('id','retryBtn');
         retryBtn.addEventListener('click',()=>{
             location.href = "../html/round1.html";
@@ -109,7 +108,7 @@ function endRound(){
 //카드에 아이디 부여
 function setId(){
     ran();
-    for(var i=0; i<14; i++){
+    for(let i=0; i<14; i++){
         card[i].setAttribute('id',foodList[ranArr[i]]);
     }
 }
@@ -180,16 +179,16 @@ function clickCard(click_id){
 
 //랜덤 수 중복제거
 function ran(){
-    var tmp;
-    var n;
+    let tmp;
+    let n;
    
     //전달받은 매개변수 n만큼 배열  
-    for(var i=0; i<14; i++){
+    for(let i=0; i<14; i++){
         ranArr.push(i);
     }
 
     //값을 서로 섞기
-    for(var i=0; i< ranArr.length ; i++){
+    for(let i=0; i< ranArr.length ; i++){
         n = Math.floor(Math.random() *14); 
         tmp = ranArr[i];
         ranArr[i] = ranArr[n];
