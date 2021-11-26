@@ -33,7 +33,6 @@ var player = {
     }
 };
 
-
 class Food{
     constructor(){
         this.x = Math.floor(Math.random()*1200); 
