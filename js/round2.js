@@ -4,7 +4,7 @@ const card = document.querySelectorAll(".card");
 var score = 0; //짝을 맞춘 갯수
 var selCnt = 0; //현재 뒤집힌 카드 갯수
 var clickCnt = 0; //카드 총선택 횟수
-var cardLen = card.length; //카드의 수
+const cardLen = card.length; //카드의 수
 var clickId; //클릭한 카드의 아이디값을 가져옴
 var clickList = ['','']; //클릭한 아이디 두개 저장
 var foodList = ['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','milk1', 
@@ -12,7 +12,10 @@ var foodList = ['salad1','steak1','shake1','oatmeal1','chickenBreast1','tofu1','
 var ranArr = new Array(); //랜덤 수 
 var chk = new Array(); //가져온 아이디를 2개 저장
 
-//createDiv();
+const currentCard = new Audio(); // Aduio 객체 생성 \
+currentCard.src = "../music/띠링.mp3"; // 음원 파일 설정
+
+
 setId();
 for(var i = 0; i < cardLen; i++){
     card[i].addEventListener("click",()=>{ //card 클래스를 가진 div에 클릭 이벤트 부여
@@ -21,14 +24,17 @@ for(var i = 0; i < cardLen; i++){
 
         selCnt++;
 
+        //클릭한 카드의 아이디를 배열에 저장
         if(selCnt == 1) {
-            clickList[0] = clickId; //클릭한 카드의 아이디를 배열에 저장
+            clickList[0] = clickId; 
         }
         else if(selCnt == 2) {
             clickList[1] = clickId;
         }
 
+        //카트 선택한 후
         if(selCnt == 2 && clickList[0] == clickList[1]){
+            currentCard.play(); // 음원 재생 
             score++;
             //createNextBtn();
             reset();
@@ -37,6 +43,9 @@ for(var i = 0; i < cardLen; i++){
             chk.splice(0,2);
             nextRound();
         } 
+        else if(selCnt == 1){
+
+        }
         else if(selCnt == 2){
             clickCnt++;
             reset();
@@ -112,7 +121,7 @@ function reset(){
 };
 
 function clickCard(click_id){
-    chk.push(click_id);
+    chk.push(click_id); //뒷자리 안잘린 아이디
     clickId = click_id.slice(0,-1);
 
     //document.getElementById(click_id).style.background = `url('../img/round2/'${clickId}'.png') no-repeat center center`;
@@ -168,22 +177,6 @@ function clickCard(click_id){
         document.getElementById('shake2').style.backgroundSize = "100px 200px";
     } 
 };
-
-// function createDiv(){
-//     var cardDiv = document.getElementById('card_div');
-//     ran();
-//     for(var i=0; i<14; i++){
-//         var newDiv = document.createElement('div');
-//         newDiv.setAttribute('class','card');
-//         newDiv.setAttribute('id',foodList[ranArr[i]]);
-//         newDiv.onclick = clickCard;
-//         //console.log(newDiv, clickCardFunc);
-        
-//         cardDiv.appendChild(newDiv);
-//     }
-// }
-
-//카드 선택 시 이미지 나타남
 
 //랜덤 수 중복제거
 function ran(){
