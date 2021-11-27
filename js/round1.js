@@ -16,6 +16,8 @@ img3.src = '../img/round1/M.png';
 
 foodList = new Array(img2,img3);
 
+let score = 0;
+
 var character = {
     x:500,
     y:300,
@@ -79,14 +81,13 @@ function frame(){ //프레임마다 실행을 할 함수
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
     animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
     timer++; 
-
+    if(timer % 100 === 0) score+=1; //100프레임마다 1점씩 추가
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
 
     if(timer%200==0){ //200프레임마다 한번 움직이게 하기
         var food = new Food();
         foodmix.push(food); //foodmix라는 배열에 200 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
     }
-    //food.draw(); 대신
 
     //각각 draw()를 해 주기 위해서 forEach()메소드 사용
     foodmix.forEach((a,i,o)=>{ //forEach에는 두 개의 파라미터 넣기 가능
@@ -157,6 +158,7 @@ function collison(character, food){
 
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
+        localStorage.setItem("score",score); //디비에 score값을 저장함
         //충돌 시 canvas 클리어 및 애니메이션을 종료한다
 
     };
