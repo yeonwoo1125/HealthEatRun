@@ -2,7 +2,10 @@ let score = 0;
 if(localStorage.getItem("score")){
     score = Number(localStorage.getItem("score"));
 }
+function ranking(){ //모든 값을 가져와서 저장한 후 localStorage를 clear 하고 최대값 3개를 구하고 다시 넣기
+    let scoreLen = localStorage.length; //랭크 안에 들어있는 점수의 길이, 0~3
 
+}
 let disc = document.createElement('div');
 disc.setAttribute('id','disc');
 disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
@@ -46,12 +49,10 @@ const dropFoodList = new Array(fishBread,eggBread,chikenSkewers,fishCake,icecrea
 function ready(){
     disc.remove();
     start = true;
-    setTimeout(function(){
-        background.play();
-        progressBar();
-        startGame(); //space를 한번 눌러야 시작
-    },2000)
 
+    background.play();
+    progressBar();
+    startGame(); //space를 한번 눌러야 시작
 }
 
 //움직이는 player obj
@@ -61,16 +62,18 @@ let player = {
     width : 150,
     height : 150,
     draw(){
-        //ctx.fillStyle="blue";
-        //ctx.fillRect(this.x, this.y, this.width, this.height); //히트박스 개념
-        ctx.drawImage(runningman, this.x, this.y, this.width, this.height);
+        ctx.drawImage(runningman, this.x, this.y, this.width, this.height);     
+
     }
 };
+
+
 
 //하늘에서 떨어지는 음식
 class Food{
     constructor(){
         this.x = Math.floor(Math.random()*1200); 
+        
         this.y = 0;
         this.width = 80;
         this.height = 70;
@@ -93,10 +96,12 @@ document.addEventListener('keydown',(e)=>{
         //let pause = document.createElement('')
         if(esc === true) {
             startGame(); //esc 누른 후 다시 눌렀을 때 애니메이션 시작
+            background.play();
             esc = false;
         }
         else {
             cancelAnimationFrame(animation); //esc를 누르면 애니메이션 정지
+            background.pause();
             esc = true;
         }
     }
@@ -106,7 +111,6 @@ document.addEventListener('keydown',(e)=>{
             player.x += 20;
             if(player.x > window.innerWidth) player.x = window.innerWidth;
         }
-
     }
     if(e.code === "ArrowLeft") {
         if(esc === false){
@@ -116,12 +120,6 @@ document.addEventListener('keydown',(e)=>{
         }
     }
 });
-
-//음식과 player의 충돌체크
-function chkCollison(player, food) {
-    localStorage.setItem("score",score);
-    console.log(score);
-}
 
 let animation;
 let foodList=[]; //food들을 가지고 있음
@@ -139,9 +137,10 @@ function startGame() {
         foodList.push(food);
     }
 
+    if(frameCnt % 100 === 0 ) localStorage.setItem("score",score);
     foodList.forEach((f,i,fl)=>{
         //장애물의 y좌표가 0보다 작을 시 제거함
-        if(f.y < 0) fl.splice(i,1);
+        if(f.y > canvas.height) fl.splice(i,1);
 
         //좌표 생성 위치는 랜덤, 랜덤한 속도로 바닥에 닿음
         f.y += f.speed;
@@ -152,7 +151,32 @@ function startGame() {
 
     player.draw();
 }
+function endRound(){
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('id','failRound');
+    newDiv.innerHTML ="GAME OVER";
+    document.body.appendChild(newDiv);
 
+    let btnDiv = document.createElement('div');
+    btnDiv.setAttribute('id','btnDiv');
+    document.body.appendChild(btnDiv);
+
+    let mainBtn = document.createElement('button');
+    mainBtn.setAttribute('id','goMainBtn');
+    mainBtn.innerHTML = "Main";
+    mainBtn.addEventListener('click',()=>{
+        location.href = "../html/main.html";
+    });
+     btnDiv.appendChild(mainBtn);
+
+    let retryBtn = document.createElement('button');
+    retryBtn.setAttribute('id','retryBtn');
+    retryBtn.addEventListener('click',()=>{
+        location.href = "../html/round1.html";
+    });
+    retryBtn.innerHTML = "Retry";
+    btnDiv.appendChild(retryBtn);
+}
 //게임의 진행도를 나타냄
 function progressBar(){
     const progress = document.createElement('progress')
@@ -160,4 +184,19 @@ function progressBar(){
     progress.setAttribute('Max',100);
     progress.setAttribute('value',50);
     document.body.appendChild(progress);
+}
+
+//음식과 player의 충돌체크
+function chkCollison(player, food) {
+    if(food.y>= player.y && ((food.x>=player.x && food.x<=player.x+player.width) 
+    && (food.x+food.width >=player.x && food.x+food.width <= player.x+player.width)) ){
+        console.log('충동ㄹ');
+        //ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
+        cancelAnimationFrame(animation);
+
+        score =  localStorage.getItem("score");
+        //endRound();
+        console.log(score);
+        return 0;
+    }
 }
