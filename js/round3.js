@@ -150,7 +150,7 @@ function startGame() {
         //좌표 생성 위치는 랜덤, 랜덤한 속도로 바닥에 닿음
         f.y += f.speed;
 
-        //chkCollison(player,f); //모든 장애물에 대해 충돌체크
+        chkCollison(player,f); //모든 장애물에 대해 충돌체크
         f.draw();
     });
 
