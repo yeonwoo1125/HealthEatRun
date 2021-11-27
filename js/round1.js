@@ -5,16 +5,16 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
-var img1 = new Image(); //이미지 컴포넌트임을 명시해준다
+const img1 = new Image(); //이미지 컴포넌트임을 명시해준다
 img1.src = '../img/round1/humanride.png';
 
-var img2 = new Image(); //이미지 컴포넌트임을 명시해준다
+const img2 = new Image(); //이미지 컴포넌트임을 명시해준다
 img2.src = '../img/round1/hamburger.png';
 
-var img3 = new Image(); //이미지 컴포넌트임을 명시해준다
+const img3 = new Image(); //이미지 컴포넌트임을 명시해준다
 img3.src = '../img/round1/M.png';
 
-foodList = new Array(img2,img3);
+const foodList = new Array(img2,img3);
 
 let score = 0;
 
@@ -26,8 +26,8 @@ var character = {
     
     //draw 메소드
     draw(){
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x,this.y,this.width,this.height);
+        //ctx.fillStyle = 'green';
+        //ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
     }
 }
@@ -55,7 +55,7 @@ class Food{
     //draw 메소드
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
-        ctx.fillStyle='red';
+        //ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(this.lotfood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
         
@@ -100,8 +100,6 @@ function frame(){ //프레임마다 실행을 할 함수
          a.x1--;
          collison(character,a); //캐릭터와 모든 장애물들 간에 충돌체크를 해야하므로 foreach 안에 넣기
          a.draw(); 
-      
-      
     });
 
     //character.y-=2; 를
