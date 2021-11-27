@@ -14,6 +14,8 @@ img2.src = '../img/round1/hamburger.png';
 var img3 = new Image(); //이미지 컴포넌트임을 명시해준다
 img3.src = '../img/round1/M.png';
 
+foodList = new Array(img2,img3);
+
 var character = {
     x:500,
     y:300,
@@ -23,7 +25,7 @@ var character = {
     //draw 메소드
     draw(){
         ctx.fillStyle = 'green';
-     
+        ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
     }
 }
@@ -31,8 +33,8 @@ var character = {
 var characterhitbox={
     x:500,
     y:300,
-    width:55,
-    height: 55,
+    width:50,
+    height:50,
 }
 //character.draw();
 
@@ -45,27 +47,24 @@ class Food{
         this.y = 550;
         this.width = 70;
         this.height = 70;
-
-        this.x1 = 1000; 
-        this.y1 = 550;
-        this.width1 = 90;
-        this.height1 = 80;
+        this.lotfood = foodList[Math.floor(Math.random()*3)];
+       
     }
     //draw 메소드
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
         ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
-        ctx.drawImage(img2, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
-        ctx.drawImage(img3, this.x1, this.y1, this.width1, this.height1); 
+        ctx.drawImage(this.lotfood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        
     }
    
 }
 var Foodhitbox={
     x:500,
     y:300,
-    width:65,
-    height: 55,
+    width:30,
+    height: 30,
 }
 
 var food = new Food();
@@ -116,7 +115,7 @@ function frame(){ //프레임마다 실행을 할 함수
         }
     }
 
-    if(jumpTime>50){ //jumpTime이 50프레임을 넘긴다면 
+    if(jumpTime>70){ //jumpTime이 50프레임을 넘긴다면 
         jump=false; //멈추기(y축의 이동을)
         //여기까지만 하면 멈추기만 하고 다시 jump기능이 작동을 안한다
         jumpTime=0; //그래서 jumptime을 초기화했다
@@ -150,8 +149,8 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
 //충돌체크
 function collison(character, food){
-    var xCheck = food.x+10 - (characterhitbox.x + characterhitbox.width);
-    var yCheck = food.y+10 - (characterhitbox.y + characterhitbox.height);
+    var xCheck = food.x - (characterhitbox.x + characterhitbox.width);
+    var yCheck = food.y - (characterhitbox.y + characterhitbox.height);
     var x1Check = food.x1 - (characterhitbox.x + characterhitbox.width);
     var y1Check = food.y1 - (characterhitbox.y + characterhitbox.height);
     if(xCheck < 0 || yCheck < 0){
