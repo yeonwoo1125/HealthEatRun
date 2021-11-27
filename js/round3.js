@@ -1,3 +1,8 @@
+let score = 0;
+if(localStorage.getItem("score")){
+    score = Number(localStorage.getItem("score"));
+}
+
 let disc = document.createElement('div');
 disc.setAttribute('id','disc');
 disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
@@ -41,9 +46,12 @@ const dropFoodList = new Array(fishBread,eggBread,chikenSkewers,fishCake,icecrea
 function ready(){
     disc.remove();
     start = true;
-    background.play();
-    progressBar();
-    startGame(); //space를 한번 눌러야 시작
+    setTimeout(function(){
+        background.play();
+        progressBar();
+        startGame(); //space를 한번 눌러야 시작
+    },2000)
+
 }
 
 //움직이는 player obj
@@ -111,7 +119,8 @@ document.addEventListener('keydown',(e)=>{
 
 //음식과 player의 충돌체크
 function chkCollison(player, food) {
-    
+    localStorage.setItem("score",score);
+    console.log(score);
 }
 
 let animation;
@@ -124,8 +133,8 @@ function startGame() {
     frameCnt++;
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
-
-    if(frameCnt % 30 == 0){ //180프레임 마다 장애물 그림
+    if(frameCnt % 100 === 0) score++;
+    if(frameCnt % 30 === 0){ //180프레임 마다 장애물 그림
         let food = new Food();
         foodList.push(food);
     }
