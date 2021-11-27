@@ -14,7 +14,11 @@ img2.src = '../img/round1/hamburger.png';
 const img3 = new Image(); //이미지 컴포넌트임을 명시해준다
 img3.src = '../img/round1/M.png';
 
-const foodList = new Array(img2,img3);
+const img4 = new Image();
+img4.src = '../img/round1/humanride2.png';
+
+const foodList = new Array(img2,img3); //캐릭터 여러개
+const runcharacter = new Array(img1,img4);
 
 let score = 0;
 
@@ -22,15 +26,19 @@ var character = {
     x:500,
     y:300,
     width:80,
-    height : 100, 
+    height : 100,
+    run = runcharacter[Math.floor(Math.random()*2)],
     
-    //draw 메소드
+   //draw 메소드
     draw(){
         //ctx.fillStyle = 'green';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
-        ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        
+        ctx.drawImage(run, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+    
     }
 }
+
 
 var characterhitbox={
     x:500,
@@ -142,7 +150,7 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
     setInterval(function(){ //1.5초 후 함수 안에 든 코드 실행함
         img1.src = '../img/round1/humanride.png';
         character.y-=30;
-    },1500); //1.5초 후 원상복구
+    },1300); //1.3초 후 원상복구
    }
 })
 
