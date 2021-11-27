@@ -39,18 +39,12 @@ class Food{
         this.y = 0;
         this.width = 100;
         this.height = 70;
-        this.speed = Math.floor(Math.random()*10+3); //떨어지는 속도
-        this.foodImg= dropFoodList[Math.floor(Math.random()*3)]
+        this.speed = Math.floor(Math.random()*15+3); //떨어지는 속도
+        this.foodImg= dropFoodList[Math.floor(Math.random()*3)]; //떨어지는 음식 
+        
     }
-    draw(){        //배열에 장애물 넣음
+    draw(){   //이미지 그림
         ctx.drawImage(this.foodImg, this.x, this.y, this.width, this.height)
-        /*var ran = Math.floor(Math.random()*3);
-        if(ran == 0) 
-            ctx.drawImage(fishBread, this.x, this.y, this.width, this.height)
-        else if(ran == 1)
-            ctx.drawImage(eggBread, this.x+200, this.y, this.width, this.height)
-        else 
-            ctx.drawImage(chikenSkewers, this.x+400, this.y, this.width, this.height) */
     }
 }
 
@@ -90,7 +84,7 @@ function startGame() {
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
 
-    if(timer % 144 == 0){ //180프레임 마다 장애물 그림
+    if(timer % 30 == 0){ //180프레임 마다 장애물 그림
         var food = new Food();
         foodList.push(food);
     }
