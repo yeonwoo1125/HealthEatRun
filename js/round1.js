@@ -2,34 +2,14 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+//canvas의 크기
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
-//const background = new Audio('../music/.mp3'); //배경 음악
-//background.volume = 0.1;
+const background = new Audio('../music/MP_Waterfall.mp3'); //배경 음악
+background.volume = 0.1;
 
-var i = 100;
-function start(){
-    if(i==100){
-      i=99;
-      var digit = document.getElementById("digit");
-      var timer = document.getElementById("myBar");
-      var width = 99;
-      var id = setInterval(frame,1000);
-      function frame(){
-          if(width <= 0){
-              clearInterval(id);
-              i=400;
-              digit.innerHTML= width+"초";
 
-          } else {
-              digit.innerHTML= width +"초";
-              width--;
-              timer.style.width = width+"px";
-          }
-      }
-    }
-}
 const img1 = new Image(); //이미지 컴포넌트임을 명시해준다
 img1.src = '../img/round1/humanride.png';
 
@@ -45,8 +25,21 @@ img4.src = '../img/humanride2/png';
 const foodList = new Array(img2,img3); //캐릭터 여러개
 const runcharacter = new Array(img1,img4);
 
+const heart = new Image();
+heart.src = '../img/round1/heart.png';
+var heartnum = 3; 
+
 let score = 0;
 
+function ready(){
+    disc.remove();
+    document.body.appendChild(canvas);
+    start = true;
+
+    background.play();
+    progressBar();
+    startGame(); //space를 한번 눌러야 시작
+}
 
 var character = {
     x:500,
@@ -58,20 +51,19 @@ var character = {
    //draw 메소드
     draw(){
         //ctx.fillStyle = 'green';
-        //ctx.fillRect(this.x,this.y,this.width,this.height);
-        
+        //ctx.fillRect(this.x,this.y,this.width,this.height);   
         ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
-    
     }
 }
 
-
+//달리는 캐릭터의 히트박스
 var characterhitbox={
     x:500,
     y:300,
     width:50,
     height:50,
 }
+
 //character.draw();
 
 //장애물 
@@ -91,11 +83,12 @@ class Food{
         //달리는 캐릭터와 동일하지만 색상은 다르게
         //ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
+ 
         ctx.drawImage(this.lotfood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
-        
+        }
     }
-   
-}
+    
+//음식의 히트박스
 var Foodhitbox={
     x:500,
     y:300,
@@ -106,16 +99,40 @@ var Foodhitbox={
 var food = new Food();
 food.draw();
 
+/*class lotheart {
+   x=600;
+   y=200;
+   width= 30;
+   height= 20;
+
+   draw(){
+    //달리는 캐릭터와 동일하지만 색상은 다르게
+    //ctx.fillStyle='red';
+    //ctx.fillRect(this.x,this.y,this.width,this.height);
+    for(let i=0; i<3; i++){
+    ctx.drawImage(this.heart, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+    }
+  }
+}
+var heart= new lotheart();
+heart.draw(); */
+
+
 var timer = 0; //화면마다 움직이는 게 다르니 그것을 방지하기 위해 timer설정
 var foodmix=[]; //foodmix 배열
 var jumpTime=0; //점프 타이머
 var animation; //animation 효과
+var progressWidth=0;
 
 function frame(){ //프레임마다 실행을 할 함수
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
     animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
     timer++; 
-    if(timer % 100 === 0) score+=1; //100프레임마다 1점씩 추가
+    
+    if(timer%100===0) progressWidth+=4;
+    if(progressWidth <= 100) progress.setAttribute('value', progressWidth);
+    else endground(); 
+
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
 
     if(timer%200==0){ //200프레임마다 한번 움직이게 하기
@@ -135,7 +152,14 @@ function frame(){ //프레임마다 실행을 할 함수
          collison(character,a); //캐릭터와 모든 장애물들 간에 충돌체크를 해야하므로 foreach 안에 넣기
          a.draw(); 
     });
+    character.draw();
+}
 
+
+     //character를 점프시키려면 y축의 위치를 바꾸어야 한다. 
+    //현재의 위치보다 올리는 것이므로 값은 - 로 가야한다
+    //1초에 60번 2를 빼주는 것 따라서
+   //character.y-=2;
     //character.y-=2; 를
     if(jump==true){ //jump값이 true가 된다면(space를 누른다면)
         character.y-=4; //y가 쭉 올라가게 한다
@@ -153,15 +177,12 @@ function frame(){ //프레임마다 실행을 할 함수
         //여기까지만 하면 멈추기만 하고 다시 jump기능이 작동을 안한다
         jumpTime=0; //그래서 jumptime을 초기화했다
     }
-    character.draw();
-}
+
+
 
 frame();
 
-//character를 점프시키려면 y축의 위치를 바꾸어야 한다. 
-//현재의 위치보다 올리는 것이므로 값은 - 로 가야한다
-//1초에 60번 2를 빼주는 것 따라서
-//character.y-=2;
+
 
 var jump = false; //여기에 false로 선언
 document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
@@ -180,6 +201,38 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
    }
 })
 
+function endRound(){
+    cancelAnimationFrame(animation);
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('id','failRound');
+    newDiv.innerHTML="GAME OVER";
+    document.body.appendChild(btnDiv);
+    let mainBtn = document.createElement('button');
+    mainBtn.setAttribute('id','goMainBtn');
+    mainBtn.innerHTML = "Main";
+    mainBtn.addEventListener('click',()=>{
+        location.href = "../html/main.html";
+    });
+     btnDiv.appendChild(mainBtn);
+
+    let retryBtn = document.createElement('button');
+    retryBtn.setAttribute('id','retryBtn');
+    retryBtn.addEventListener('click',()=>{
+        location.href = "../html/round1.html";
+    });
+    retryBtn.innerHTML = "Retry";
+    btnDiv.appendChild(retryBtn);
+}
+
+const progress = document.createElement('progress')
+//게임의 진행도를 나타냄
+function progressBar(){
+    progress.setAttribute('id','progress');
+    progress.setAttribute('Max',100);
+    progress.setAttribute('value',0);
+    document.body.appendChild(progress);
+}
+
 //충돌체크
 function collison(character, food){
     var xCheck = food.x - (characterhitbox.x + characterhitbox.width);
@@ -192,7 +245,7 @@ function collison(character, food){
         cancelAnimationFrame(animation); 
         localStorage.setItem("score",score); //디비에 score값을 저장함
         //충돌 시 canvas 클리어 및 애니메이션을 종료한다
-
+    
     };
 }
  
