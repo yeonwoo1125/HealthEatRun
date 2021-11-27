@@ -21,7 +21,7 @@ document.body.appendChild(bottom);
 
 const canvas = document.createElement('canvas');
 canvas.setAttribute('id','canvas');
-document.body.appendChild(canvas);
+
 
 const ctx = canvas.getContext('2d');
 
@@ -48,6 +48,7 @@ const dropFoodList = new Array(fishBread,eggBread,chikenSkewers,fishCake,icecrea
 
 function ready(){
     disc.remove();
+    document.body.appendChild(canvas);
     start = true;
 
     background.play();
@@ -67,17 +68,14 @@ let player = {
     }
 };
 
-
-
 //하늘에서 떨어지는 음식
 class Food{
     constructor(){
         this.x = Math.floor(Math.random()*1200); 
-        
         this.y = 0;
         this.width = 80;
         this.height = 70;
-        this.speed = Math.floor(Math.random()*15+3); //떨어지는 속도
+        this.speed = Math.floor(Math.random()*17+3); //떨어지는 속도
         this.foodImg= dropFoodList[Math.floor(Math.random()*5)]; //떨어지는 음식 
     }
     draw(){   //이미지 그림
@@ -107,15 +105,15 @@ document.addEventListener('keydown',(e)=>{
     }
     if(e.code === "ArrowRight") {
         if(esc === false){
+            player.x += 30;
             runningman.src = "../img/round3/man_right.png";
-            player.x += 20;
-            if(player.x > window.innerWidth) player.x = window.innerWidth;
+            if(player.x > canvas.width) player.x = canvas.width
         }
     }
     if(e.code === "ArrowLeft") {
         if(esc === false){
+            player.x -= 30;
             runningman.src="../img/round3/man_left.png";
-            player.x -= 20;
             if(player.x < 0) player.x = 0
         }
     }
@@ -124,20 +122,27 @@ document.addEventListener('keydown',(e)=>{
 let animation;
 let foodList=[]; //food들을 가지고 있음
 let frameCnt = 0; //프레임 실행 횟수
-
+let progressWidth = 0; //progress바의 게이지 
 //게임 시작
 function startGame() {
     animation = requestAnimationFrame(startGame)
     frameCnt++;
 
+    if(frameCnt % 100 === 0) progressWidth+=4;
+    if(progressWidth<= 100) progress.setAttribute('value',progressWidth);
+    else endRound();
+
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
-    if(frameCnt % 100 === 0) score++;
-    if(frameCnt % 30 === 0){ //180프레임 마다 장애물 그림
+
+    if(frameCnt % 100 === 0){
+        score++;
+        localStorage.setItem("score",score);
+    } 
+    if(frameCnt % 15 === 0){ //180프레임 마다 장애물 그림
         let food = new Food();
         foodList.push(food);
     }
 
-    if(frameCnt % 100 === 0 ) localStorage.setItem("score",score);
     foodList.forEach((f,i,fl)=>{
         //장애물의 y좌표가 0보다 작을 시 제거함
         if(f.y > canvas.height) fl.splice(i,1);
@@ -145,13 +150,15 @@ function startGame() {
         //좌표 생성 위치는 랜덤, 랜덤한 속도로 바닥에 닿음
         f.y += f.speed;
 
-        chkCollison(player,f); //모든 장애물에 대해 충돌체크
+        //chkCollison(player,f); //모든 장애물에 대해 충돌체크
         f.draw();
     });
 
     player.draw();
 }
+
 function endRound(){
+    cancelAnimationFrame(animation);
     let newDiv = document.createElement('div');
     newDiv.setAttribute('id','failRound');
     newDiv.innerHTML ="GAME OVER";
@@ -177,12 +184,13 @@ function endRound(){
     retryBtn.innerHTML = "Retry";
     btnDiv.appendChild(retryBtn);
 }
+
+const progress = document.createElement('progress')
 //게임의 진행도를 나타냄
 function progressBar(){
-    const progress = document.createElement('progress')
     progress.setAttribute('id','progress');
     progress.setAttribute('Max',100);
-    progress.setAttribute('value',50);
+    progress.setAttribute('value',0);
     document.body.appendChild(progress);
 }
 
@@ -192,7 +200,7 @@ function chkCollison(player, food) {
     && (food.x+food.width >=player.x && food.x+food.width <= player.x+player.width)) ){
         console.log('충동ㄹ');
         //ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
-        cancelAnimationFrame(animation);
+        endRound();
 
         score =  localStorage.getItem("score");
         //endRound();
