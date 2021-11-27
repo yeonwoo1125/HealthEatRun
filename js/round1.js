@@ -1,10 +1,16 @@
 //캔버스 생성
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+canvas.setAttribute('id','canvas');
 
 //canvas의 크기
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
+
+/*let disc = document.createElement('div');
+disc.setAttribute('id','disc');
+//disc.innerHTML = "Space를 누르면 게임을 시작합니다!";
+document.body.appendChild(disc);*/
 
 const background = new Audio('../music/MP_Waterfall.mp3'); //배경 음악
 background.volume = 0.1;
@@ -20,7 +26,7 @@ const img3 = new Image(); //이미지 컴포넌트임을 명시해준다
 img3.src = '../img/round1/M.png';
 
 const img4 = new Image();
-img4.src = '../img/humanride2/png';
+img4.src = '../img/round1/humanride2.png';
 
 const foodList = new Array(img2,img3); //캐릭터 여러개
 const runcharacter = new Array(img1,img4);
@@ -47,7 +53,7 @@ var character = {
     width:80,
     height : 100,
     //run = runcharacter[],
-    
+   
    //draw 메소드
     draw(){
         //ctx.fillStyle = 'green';
@@ -64,6 +70,12 @@ var characterhitbox={
     height:50,
 }
 
+document.onreadystatechange = function() {
+    if(document.readyState == "complete") {
+//
+        //document is ready . Do you stuff here
+    }
+}
 //character.draw();
 
 //장애물 
@@ -83,11 +95,12 @@ class Food{
         //달리는 캐릭터와 동일하지만 색상은 다르게
         //ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
- 
+     
         ctx.drawImage(this.lotfood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
-        }
-    }
     
+}
+}
+  
 //음식의 히트박스
 var Foodhitbox={
     x:500,
@@ -117,6 +130,22 @@ food.draw();
 var heart= new lotheart();
 heart.draw(); */
 
+var jump = false; //여기에 false로 선언
+document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
+   if(e.code == 'Space'){
+    //여기서는 character.y-2를 할 수가 없음
+    //그러니 swich 하는 변수를 전역으로 
+    jump=true; //space를 누르면 true로
+   }
+   else if(e.code =='ArrowDown') { //아래화살표 -> 슬라이딩
+    img1.src = "../img/round1/slideMan.png"; //키보드 누르면 아래로 가는 이미지 변경
+    character.y+=30; //슬라이딩하면 밑으로 가는 것 같은 효과
+    setInterval(function(){ //1.5초 후 함수 안에 든 코드 실행함
+        img1.src = '../img/round1/humanride.png';
+        character.y-=30;
+    },1300); //1.3초 후 원상복구
+   }
+});
 
 var timer = 0; //화면마다 움직이는 게 다르니 그것을 방지하기 위해 timer설정
 var foodmix=[]; //foodmix 배열
@@ -124,9 +153,21 @@ var jumpTime=0; //점프 타이머
 var animation; //animation 효과
 var progressWidth=0;
 
+
+
+const progress = document.createElement('progress')
+//게임의 진행도를 나타냄
+function progressBar(){
+    progress.setAttribute('id','progress');
+    progress.setAttribute('Max',100);
+    progress.setAttribute('value',0);
+    document.body.appendChild(progress);
+}
+
+
 function frame(){ //프레임마다 실행을 할 함수
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
-    animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
+    animation = requestAnimationFrame(frame) //js의 내장함수(frame을 반복시킨다)
     timer++; 
     
     if(timer%100===0) progressWidth+=4;
@@ -184,22 +225,7 @@ frame();
 
 
 
-var jump = false; //여기에 false로 선언
-document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
-   if(e.code == 'Space'){
-    //여기서는 character.y-2를 할 수가 없음
-    //그러니 swich 하는 변수를 전역으로 
-    jump=true; //space를 누르면 true로
-   }
-   else if(e.code =='ArrowDown') { //아래화살표 -> 슬라이딩
-    img1.src = "../img/round1/slideMan.png"; //키보드 누르면 아래로 가는 이미지 변경
-    character.y+=30; //슬라이딩하면 밑으로 가는 것 같은 효과
-    setInterval(function(){ //1.5초 후 함수 안에 든 코드 실행함
-        img1.src = '../img/round1/humanride.png';
-        character.y-=30;
-    },1300); //1.3초 후 원상복구
-   }
-})
+
 
 function endRound(){
     cancelAnimationFrame(animation);
@@ -224,14 +250,6 @@ function endRound(){
     btnDiv.appendChild(retryBtn);
 }
 
-const progress = document.createElement('progress')
-//게임의 진행도를 나타냄
-function progressBar(){
-    progress.setAttribute('id','progress');
-    progress.setAttribute('Max',100);
-    progress.setAttribute('value',0);
-    document.body.appendChild(progress);
-}
 
 //충돌체크
 function collison(character, food){

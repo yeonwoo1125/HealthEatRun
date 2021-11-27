@@ -8,21 +8,58 @@ body{
    
 }
 
-#myProgress{
-    width:400px;
-    /*뒷배경 흰색으로 */
-    background-color: #ddd; 
-}
-
-#myBar{
-   width: 400px;
-   height: 30px;
-   background-color: rgb(68, 204, 141);
-}
-
-
 /*keyframes의 이름은 movebg이고 0%일때 정화면, 100%일때 가로넓이 값인 -500px로 위치 변경*/
 @keyframes movebg{
     0% {background-position:0 center;}
     100% {background-position:  -1500px center;}
+}
+
+
+#progress{
+    width: 600px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+#disc{
+    text-align: center;
+    margin-top: 300px;
+    font-size: 3em;
+    font-family: 'Jua', sans-serif;
+}
+
+#failRound{
+    width: 1000px;
+    height: 300px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-500px;
+    margin-top:-300px;
+
+    font-style: red;
+    text-align: center;
+    font-size: 7em;
+    font-family: 'Luckiest Guy', cursive; 
+}
+
+#btnDiv{
+    width: 100vw;
+    height: 200px;
+    position:absolute;
+    top: 50%;
+
+    text-align: center;
+}
+
+
+#goMainBtn, #retryBtn{
+    width: 170px;
+    height: 80px;
+    background-color: white;
+
+    margin: 70px;
+    font-size: 2em;
+    font-family: 'Luckiest Guy', cursive;
 }
