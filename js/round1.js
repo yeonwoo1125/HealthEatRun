@@ -31,10 +31,11 @@ img4.src = '../img/round1/humanride2.png';
 const foodList = new Array(img2,img3); //캐릭터 여러개
 const runcharacter = new Array(img1,img4);
 
+/* //체력 하트 
 const heart = new Image();
 heart.src = '../img/round1/heart.png';
 var heartnum = 3; 
-
+*/
 let score = 0;
 
 function ready(){
@@ -72,7 +73,7 @@ var characterhitbox={
 
 document.onreadystatechange = function() {
     if(document.readyState == "complete") {
-//
+
         //document is ready . Do you stuff here
     }
 }
@@ -112,7 +113,7 @@ var Foodhitbox={
 var food = new Food();
 food.draw();
 
-/*class lotheart {
+/*class lotheart { 하트 생성
    x=600;
    y=200;
    width= 30;
@@ -222,9 +223,6 @@ function frame(){ //프레임마다 실행을 할 함수
 
 
 frame();
-
-
-
 
 
 function endRound(){
