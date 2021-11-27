@@ -5,6 +5,31 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
+//const background = new Audio('../music/.mp3'); //배경 음악
+//background.volume = 0.1;
+
+var i = 100;
+function start(){
+    if(i==100){
+      i=99;
+      var digit = document.getElementById("digit");
+      var timer = document.getElementById("myBar");
+      var width = 99;
+      var id = setInterval(frame,1000);
+      function frame(){
+          if(width <= 0){
+              clearInterval(id);
+              i=400;
+              digit.innerHTML= width+"초";
+
+          } else {
+              digit.innerHTML= width +"초";
+              width--;
+              timer.style.width = width+"px";
+          }
+      }
+    }
+}
 const img1 = new Image(); //이미지 컴포넌트임을 명시해준다
 img1.src = '../img/round1/humanride.png';
 
@@ -15,26 +40,27 @@ const img3 = new Image(); //이미지 컴포넌트임을 명시해준다
 img3.src = '../img/round1/M.png';
 
 const img4 = new Image();
-img4.src = '../img/round1/humanride2.png';
+img4.src = '../img/humanride2/png';
 
 const foodList = new Array(img2,img3); //캐릭터 여러개
 const runcharacter = new Array(img1,img4);
 
 let score = 0;
 
+
 var character = {
     x:500,
     y:300,
     width:80,
     height : 100,
-    run = runcharacter[Math.floor(Math.random()*2)],
+    //run = runcharacter[],
     
    //draw 메소드
     draw(){
         //ctx.fillStyle = 'green';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
         
-        ctx.drawImage(run, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
     
     }
 }

@@ -14,16 +14,12 @@ body{
     background-color: #ddd; 
 }
 
-#mybar{
+#myBar{
    width: 400px;
    height: 30px;
    background-color: rgb(68, 204, 141);
 }
 
-.backmoving{
-    /*width:500px;*/
-   
-}
 
 /*keyframes의 이름은 movebg이고 0%일때 정화면, 100%일때 가로넓이 값인 -500px로 위치 변경*/
 @keyframes movebg{
