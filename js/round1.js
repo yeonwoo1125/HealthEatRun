@@ -17,29 +17,58 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
+//캐릭터 이미지 1 
 const img1 = new Image(); //이미지 컴포넌트임을 명시해준다
 img1.src = '../img/round1/humanride.png';
+
+//햄버거 이미지
 const img2 = new Image(); //이미지 컴포넌트임을 명시해준다
 img2.src = '../img/round1/hamburger.png';
+
+//감자튀김 이미지
 const img3 = new Image(); //이미지 컴포넌트임을 명시해준다
 img3.src = '../img/round1/M.png';
  
+//캐릭터 이미지 2
 const img4 = new Image();
 img4.src = '../img/round1/humanride2.png';
 
+//아이스크림 이미지
 const img5 = new Image();
 img5.src = '../img/round1/icecream.png';
 
-const bottomFoodList = new Array(img2,img3,img5); //장애물 음식이 여러개
-const topFoodList = new Array(); //여기서 위에 생성될 장애물 이미지 객체 넣어주기
+const bottomFoodList = new Array(img2,img3); //장애물 음식이 여러개
+const topFoodList = new Array(img5); //여기서 위에 생성될 장애물 이미지 객체 넣어주기
 const runcharacter = new Array(img1,img4); //캐릭터가 달리는 모습을 구현하기 위함
 
-var heart = new Image();
+/*
+//하트(체력) 구현을 위함
+const heart = new Image();
 heart.src = "../img/round1/heart.png";
-var heart = -1;
-
-
+//var heartnum = 3;
+*/
 let score = 0;
+
+/*var num =3;
+
+$("#S").click(function(){
+next();
+});
+
+function next(){
+    if(num==0){
+      $(".S1").hide();
+      $(".S2").hide();
+      $(".S3").hide();
+      $(".S").hide();
+    }else{
+        $(".S"+num).show();
+        num--;
+    }
+}
+*/
+
+
 
 function ready(){
     disc.remove();
@@ -48,6 +77,7 @@ function ready(){
 
     background.play();
     progressBar();
+    heartBar(); //체력바
     frame();
 }
 
@@ -65,6 +95,7 @@ var character = {
 
     }
 }
+
 
 var characterhitbox={
     x:500,
@@ -85,9 +116,14 @@ class Food{
         this.y = 550;
         this.width = 70;
         this.height = 70;
-        this.bottomFood = bottomFoodList[Math.floor(Math.random()*3)];
-        this.topFood = topFoodList[Math.floor(Math.random()*n)]; //이미지 객체 수에 따른 랜덤값 넣어주기(이미지가 3개면 n은 3)
+        this.x2 = 850;
+        this.y2 = 500;
+        this.width2 = 90;
+        this.height2 = 70;
+        this.bottomFood = bottomFoodList[Math.floor(Math.random()*2)];
+        this.topFood = topFoodList[Math.floor(Math.random()*1)]; //이미지 객체 수에 따른 랜덤값 넣어주기(이미지가 3개면 n은 3)
     }
+
     //draw 메소드
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
@@ -96,8 +132,9 @@ class Food{
         if(Math.floor(Math.random()*2) === 0)
             ctx.drawImage(this.bottomFood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
         else 
-            ctx.drawImage(this.topFood, this.x, this.y, this.width, this.height);
+            ctx.drawImage(this.topFood, this.x2, this.y2, this.width2, this.height2);
     }
+
 }
 
 let esc = false; //esc 초기설정
@@ -110,7 +147,7 @@ document.addEventListener('keydown',(e)=>{
     if(e.code === "Escape") {
         //let pause = document.createElement('')
         if(esc === true) {
-            startGame(); //esc를 누른 후 다시 눌렀을 때 애니메이션 시작
+            frame(); //esc를 누른 후 다시 눌렀을 때 애니메이션 시작
             background.play();
             esc = false;
         }
@@ -131,12 +168,33 @@ var Foodhitbox={
 
 var food = new Food();
 food.draw();
+
+class Heart{
+    constructor(){ 
+        //크기는 캐릭터와 동일하지만 위치는 다르게 한다
+        this.x = 400; 
+        this.y = 300;
+        this.width = 40;
+        this.height = 40;
+    }
+
+    //draw 메소드
+    /*draw(){
+       for( var i= 0; i<3; i++){
+        ctx.drawImage(heart,this.x2, this.y2, this.width, this.height);
+       }
+    }*/
+}
+
+
 var timer = 0; //화면마다 움직이는 게 다르니 그것을 방지하기 위해 timer설정
 var foodmix=[]; //foodmix 배열
 var jumpTime=0; //점프 타이머
 var animation; //animation 효과
 var progressWidth =0;
+var heartWidth=0; //체력바
 
+//진행바
 const progress = document.createElement('progress')
 function progressBar(){
     progress.setAttribute('id','progress');
@@ -144,7 +202,14 @@ function progressBar(){
     progress.setAttribute('value',0);
     document.body.appendChild(progress);
 }
-
+//체력바
+const heart = document.createElement('heart')
+function heartBar(){
+    heart.setAttribute('id','progress');
+    heart.setAttribute('Max',100);
+    heart.setAttribute('value',0);
+    document.body.appendChild(heart);
+}
 
 function frame(){ //프레임마다 실행을 할 함수
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
@@ -154,12 +219,11 @@ function frame(){ //프레임마다 실행을 할 함수
     if(timer%100===0) progressWidth +=4;
     if(progressWidth <=100) progress.setAttribute('value',progressWidth);
     else endRound();
-
-    for(var i = 0; i<3; i++){
-        heart.onload = function() {
-        ctx.drawImage(heart, 1120+(i*45),10,40,40);
-        }
-    }
+   
+    //체력바
+    if(timer%100===0) heartWidth +=4;
+    if(heartWidth <=100) heart.setAttribute('value',heartWidth);
+    else endRound();
     
 
     if(timer % 100 === 0) score+=1; //100프레임마다 1점씩 추가
@@ -189,16 +253,17 @@ function frame(){ //프레임마다 실행을 할 함수
     }
     if(jump==false){
         if(character.y<500){  //y축의 위치가 일정높이에 다다랐을때
-            character.y+=5; //아래로 내려오게(y값을 늘린다)
+            character.y+=3; //아래로 내려오게(y값을 늘린다)
         }
     }
-    if(jumpTime>70){ //jumpTime이 50프레임을 넘긴다면 
+    if(jumpTime>50){ //jumpTime이 50프레임을 넘긴다면 
         jump=false; //멈추기(y축의 이동을)
         //여기까지만 하면 멈추기만 하고 다시 jump기능이 작동을 안한다
         jumpTime=0; //그래서 jumptime을 초기화했다
     }
-    character.draw();
+    character.draw();    
 }
+
 
 frame();
 
@@ -251,17 +316,12 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
     },1300); //1.3초 후 원상복구
 }
-})
-
-
+});
 
 //충돌 체크
-function collison(character, food){
-    var xCheck = food.x - (characterhitbox.x + characterhitbox.width);
-    var yCheck = food.y - (characterhitbox.y + characterhitbox.height);
-    var x1Check = food.x1 - (characterhitbox.x + characterhitbox.width);
-    var y1Check = food.y1 - (characterhitbox.y + characterhitbox.height);
-    if(xCheck < 0 || yCheck < 0){
+function collison(characterhitbox, food){
+    if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
+    && (food.x+food.width >=characterhitbox.x && food.x+food.width <= characterhitbox.x+characterhitbox.width)) ){
         endRound();
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
