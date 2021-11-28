@@ -71,7 +71,7 @@ let player = {
 //하늘에서 떨어지는 음식
 class Food{
     constructor(){
-        this.x = Math.floor(Math.random()*1200); 
+        this.x = Math.floor(Math.random()*canvas.width); 
         this.y = 0;
         this.width = 80;
         this.height = 70;
@@ -130,7 +130,7 @@ function startGame() {
 
     if(frameCnt % 100 === 0) progressWidth+=4;
     if(progressWidth<= 100) progress.setAttribute('value',progressWidth);
-    else endRound();
+    else finishRound();
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
 
@@ -156,7 +156,12 @@ function startGame() {
 
     player.draw();
 }
+//모든 라운드를 끝냄
+function finishRound(){ 
 
+}
+
+//죽었을 때 보여주는 화면
 function endRound(){
     cancelAnimationFrame(animation);
     let newDiv = document.createElement('div');
@@ -196,15 +201,14 @@ function progressBar(){
 
 //음식과 player의 충돌체크
 function chkCollison(player, food) {
-    if(food.y>= player.y && ((food.x>=player.x && food.x<=player.x+player.width) 
-    && (food.x+food.width >=player.x && food.x+food.width <= player.x+player.width)) ){
-        console.log('충동ㄹ');
-        //ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
+    if(food.y >= player.y+player.height && (food.x >= player.x && food.x<=player.x+player.width)) {
+        ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
         endRound();
+    
 
-        score =  localStorage.getItem("score");
-        //endRound();
-        console.log(score);
-        return 0;
+        // score =  localStorage.getItem("score");
+        // //endRound();
+        // console.log(score);
+        // return 0;
     }
 }
