@@ -30,7 +30,8 @@ img4.src = '../img/round1/humanride2.png';
 const img5 = new Image();
 img5.src = '../img/round1/icecream.png';
 
-const foodList = new Array(img2,img3,img5); //장애물 음식이 여러개
+const bottomFoodList = new Array(img2,img3,img5); //장애물 음식이 여러개
+const topFoodList = new Array(); //여기서 위에 생성될 장애물 이미지 객체 넣어주기
 const runcharacter = new Array(img1,img4); //캐릭터가 달리는 모습을 구현하기 위함
 
 var heart = new Image();
@@ -84,15 +85,18 @@ class Food{
         this.y = 550;
         this.width = 70;
         this.height = 70;
-        this.lotfood = foodList[Math.floor(Math.random()*3)];
-        
+        this.bottomFood = bottomFoodList[Math.floor(Math.random()*3)];
+        this.topFood = topFoodList[Math.floor(Math.random()*n)]; //이미지 객체 수에 따른 랜덤값 넣어주기(이미지가 3개면 n은 3)
     }
     //draw 메소드
     draw(){
         //달리는 캐릭터와 동일하지만 색상은 다르게
         //ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
-        ctx.drawImage(this.lotfood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        if(Math.floor(Math.random()*2) === 0)
+            ctx.drawImage(this.bottomFood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+        else 
+            ctx.drawImage(this.topFood, this.x, this.y, this.width, this.height);
     }
 }
 
