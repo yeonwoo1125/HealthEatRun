@@ -33,10 +33,14 @@ img5.src = '../img/round1/icecream.png';
 const foodList = new Array(img2,img3,img5); //장애물 음식이 여러개
 const runcharacter = new Array(img1,img4); //캐릭터가 달리는 모습을 구현하기 위함
 
+var heart = new Image();
+heart.src = "../img/round1/heart.png";
+var heart = -1;
+
+
 let score = 0;
 
 function ready(){
-
     disc.remove();
     document.body.appendChild(canvas);
     start= true;
@@ -92,7 +96,7 @@ class Food{
     }
 }
 
-let esc = false;
+let esc = false; //esc 초기설정
 //키보드 이벤트
 document.addEventListener('keydown',(e)=>{
     if(e.code === "Space"){
@@ -102,7 +106,7 @@ document.addEventListener('keydown',(e)=>{
     if(e.code === "Escape") {
         //let pause = document.createElement('')
         if(esc === true) {
-            startGame(); //esc 누른 후 다시 눌렀을 때 애니메이션 시작
+            startGame(); //esc를 누른 후 다시 눌렀을 때 애니메이션 시작
             background.play();
             esc = false;
         }
@@ -143,11 +147,16 @@ function frame(){ //프레임마다 실행을 할 함수
     animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
     timer++; 
 
-   if(timer%100===0) progressWidth +=4;
-   if(progressWidth <=100) progress.setAttribute('value',progressWidth);
-   else endRound();
+    if(timer%100===0) progressWidth +=4;
+    if(progressWidth <=100) progress.setAttribute('value',progressWidth);
+    else endRound();
 
-
+    for(var i = 0; i<3; i++){
+        heart.onload = function() {
+        ctx.drawImage(heart, 1120+(i*45),10,40,40);
+        }
+    }
+    
 
     if(timer % 100 === 0) score+=1; //100프레임마다 1점씩 추가
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
@@ -155,6 +164,7 @@ function frame(){ //프레임마다 실행을 할 함수
         var food = new Food();
         foodmix.push(food); //foodmix라는 배열에 200 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
     }
+
     //각각 draw()를 해 주기 위해서 forEach()메소드 사용
     foodmix.forEach((a,i,o)=>{ //forEach에는 두 개의 파라미터 넣기 가능
        if(a.x < (0-a.width) || a.x1 < (0-a.width1)){ //오브젝트의 x값이 o보다 작아져 화면에서 나갔을 때 
