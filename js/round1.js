@@ -6,11 +6,17 @@ const background = new Audio('../music/MP_Waterfall.mp3'); //배경 음악
 background.volume = 0.1;
 let start = false;
 
+let bottom = document.createElement('div')
+bottom.setAttribute('id','bottom');
+document.body.appendChild(bottom);
+
 //캔버스 생성
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
+
 const img1 = new Image(); //이미지 컴포넌트임을 명시해준다
 img1.src = '../img/round1/humanride.png';
 const img2 = new Image(); //이미지 컴포넌트임을 명시해준다
@@ -30,6 +36,7 @@ const runcharacter = new Array(img1,img4); //캐릭터가 달리는 모습을 �
 let score = 0;
 
 function ready(){
+
     disc.remove();
     document.body.appendChild(canvas);
     start= true;
@@ -38,6 +45,7 @@ function ready(){
     progressBar();
     frame();
 }
+
 var character = {
     x:500,
     y:300,
@@ -52,12 +60,16 @@ var character = {
 
     }
 }
+
 var characterhitbox={
     x:500,
     y:300,
     width:30,
     height:30,
 }
+
+
+
 //character.draw();
 //장애물 
 //각각 크기와 위치가 다르므로 아예 class 항목으로 정리한다
@@ -80,6 +92,27 @@ class Food{
     }
 }
 
+let esc = false;
+//키보드 이벤트
+document.addEventListener('keydown',(e)=>{
+    if(e.code === "Space"){
+        if(start === false)
+         ready();
+    } 
+    if(e.code === "Escape") {
+        //let pause = document.createElement('')
+        if(esc === true) {
+            startGame(); //esc 누른 후 다시 눌렀을 때 애니메이션 시작
+            background.play();
+            esc = false;
+        }
+        else {
+            cancelAnimationFrame(animation); //esc를 누르면 애니메이션 정지
+            background.pause();
+            esc = true;
+        }
+    }
+});
 
 var Foodhitbox={
     x:500,
@@ -103,6 +136,8 @@ function progressBar(){
     progress.setAttribute('value',0);
     document.body.appendChild(progress);
 }
+
+
 function frame(){ //프레임마다 실행을 할 함수
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
     animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
