@@ -50,7 +50,7 @@ function ready(){
 
 var character = {
     x:500,
-    y:300,
+    y:500,
     width:80,
     height : 100,
     //run = runcharacter[],
@@ -66,7 +66,7 @@ var character = {
 //달리는 캐릭터의 히트박스
 var characterhitbox={
     x:500,
-    y:300,
+    y:550,
     width:50,
     height:50,
 }
@@ -88,7 +88,7 @@ class Food{
         this.y = 550;
         this.width = 70;
         this.height = 70;
-        this.lotfood = foodList[Math.floor(Math.random()*3)];
+        this.lotfood = foodList[Math.floor(Math.random()*2)];
        
     }
     //draw 메소드
