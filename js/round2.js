@@ -132,11 +132,11 @@ function startGame() {
 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
 
-    if(frameCnt % 100 === 0){
+    if(frameCnt % 90 === 0){
         score++;
-        localStorage.setItem("score",score);
+        localStorage.setItem("score", score);
     } 
-    if(frameCnt % 15 === 0){ //180프레임 마다 장애물 그림
+    if(frameCnt % 17 === 0){ //17프레임 마다 장애물 그림
         let food = new Food();
         foodList.push(food);
     }
@@ -194,6 +194,9 @@ function finishRound(){
 function endRound(){
     cancelAnimationFrame(animation);
     background.pause();
+
+    score =  localStorage.getItem("score");
+
     let gameOverDiv = document.createElement('div');
     gameOverDiv.setAttribute('id','failRound');
     gameOverDiv.innerHTML ="GAME OVER";
@@ -237,12 +240,8 @@ function progressBar(){
 //음식과 player의 충돌체크
 function chkCollison(player, food) {
     if(food.y >= player.y+player.height && (food.x >= player.x && food.x<=player.x+player.width)) {
+
         ctx.clearRect(0,0, canvas.width, canvas.height); //canvas 초기화
         endRound();
-    
-        // score =  localStorage.getItem("score");
-        // //endRound();
-        // console.log(score);
-        // return 0;
     }
 }

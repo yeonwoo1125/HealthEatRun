@@ -36,7 +36,7 @@
     text-align: center;
 }
 
-#goMainBtn, #retryBtn, #rankingBtn{
+#goMainBtn, #retryBtn{
     width: 180px;
     height: 70px;
     background-color: white;
