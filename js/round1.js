@@ -58,7 +58,7 @@ heart.src = "../img/round1/heart.png";
 function ready(){
     disc.remove();
     start= true;
-
+    progressBar();
     background.play();
 
     frame();
@@ -179,14 +179,14 @@ var progressWidth =0;
 var heartWidth=0; //체력바
 
 //진행바
-/* const progress = document.createElement('progress')
+const progress = document.createElement('progress')
 //게임의 진행도를 나타냄
 function progressBar(){
     progress.setAttribute('id','progress');
     progress.setAttribute('Max',100);
     progress.setAttribute('value',0);
     document.body.appendChild(progress);
-} */
+}
 
 function frame(){ //프레임마다 실행을 할 함수
 
@@ -195,13 +195,12 @@ function frame(){ //프레임마다 실행을 할 함수
     timer++; 
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
     if(timer%90===0) {
-        //progressWidth +=Math.floor(Math.random()*3);
+        progressWidth +=Math.floor(Math.random()*3+1);
         score++;
         localStorage.setItem("score",score);
     }
-    //if(progressWidth <=100) progress.setAttribute('value',progressWidth);
-        //else clearRound();
-
+    if(progressWidth <= 100) progress.setAttribute('value',progressWidth);
+    else finishRound();
    
     if(timer%200==0){ //200프레임마다 한번 움직이게 하기
         var food = new Food();
@@ -282,18 +281,23 @@ function endRound(){
     btnDiv.appendChild(retryBtn);
 }
 //라운드를 클리어 한다면
-function clearRound(){
-
+function finishRound(){ 
     cancelAnimationFrame(animation);
-    let newDiv = document.createElement('div');
-    newDiv.setAttribute('id','ClearRound');
-    newDiv.innerHTML ="! GAME CLEAR !";
-    document.body.appendChild(newDiv);
+    background.pause();
 
-    let btnDiv = document.createElement('div');
-    btnDiv.setAttribute('id','btnDiv');
-    document.body.appendChild(btnDiv);
+    let gameClearDiv = document.createElement('div');
+    gameClearDiv.setAttribute('id','gameClearDiv');
+    gameClearDiv.innerHTML = "ROUND1 CLEAR!";
+    document.body.appendChild(gameClearDiv);
 
+    let scoreDiv = document.createElement('div');
+    scoreDiv.setAttribute('id','scoreDiv');
+    scoreDiv.innerHTML="SCORE : "+score+"kcal";
+    document.body.appendChild(scoreDiv);
+
+    setTimeout(function(){
+        location.href="../html/round2.html";
+    },3000);
 }
 //character를 점프시키려면 y축의 위치를 바꾸어야 한다. 
 //현재의 위치보다 올리는 것이므로 값은 - 로 가야한다

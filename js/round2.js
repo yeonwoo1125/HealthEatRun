@@ -2,10 +2,7 @@ let score = 0;
 if(localStorage.getItem("score")){
     score = Number(localStorage.getItem("score"));
 }
-function ranking(){ //모든 값을 가져와서 저장한 후 localStorage를 clear 하고 최대값 3개를 구하고 다시 넣기
-    let scoreLen = localStorage.length; //랭크 안에 들어있는 점수의 길이, 0~3
 
-}
 let disc = document.createElement('div');
 disc.setAttribute('id','disc');
 disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
@@ -51,7 +48,7 @@ function ready(){
     document.body.appendChild(canvas);
     start = true;
 
-    //background.play();
+    background.play();
     progressBar();
     startGame(); //space를 한번 눌러야 시작
 }
@@ -92,7 +89,7 @@ document.addEventListener('keydown',(e)=>{
     if(e.code === "Escape") {
         if(esc === true) {
             startGame(); //esc 누른 후 다시 눌렀을 때 애니메이션 시작
-            //background.play();
+            background.play();
             esc = false;
         }
         else {
@@ -126,7 +123,7 @@ function startGame() {
     animation = requestAnimationFrame(startGame)
     frameCnt++;
 
-    if(frameCnt % 100 === 0) progressWidth+=4;
+    if(frameCnt % 100 === 0) progressWidth +=Math.floor(Math.random()*3+1);
     if(progressWidth<= 100) progress.setAttribute('value',progressWidth);
     else finishRound();
 
@@ -180,14 +177,6 @@ function finishRound(){
         location.href = "../html/main.html";
     });
      btnDiv.appendChild(mainBtn);
-
-    let rankingBtn = document.createElement('button');
-    rankingBtn.setAttribute('id','rankingBtn');
-    rankingBtn.innerHTML = "RANK";
-    rankingBtn.addEventListener('click',()=>{
-        location.href = "../html/ranking.html";
-    });
-    btnDiv.appendChild(rankingBtn);
 }
 
 //죽었을 때 보여주는 화면
