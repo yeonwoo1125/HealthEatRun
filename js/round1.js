@@ -1,5 +1,11 @@
-var disc = document.createElement('div');
+
+
+localStorage.removeItem("score");
+let score = 0;
+
+let disc = document.createElement('div');
 disc.setAttribute('id','disc');
+disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
 document.body.appendChild(disc);
 
 const background = new Audio('../music/MP_Waterfall.mp3'); //배경 음악
@@ -47,40 +53,15 @@ const heart = new Image();
 heart.src = "../img/round1/heart.png";
 //var heartnum = 3;
 */
-let score = 0;
 
-/*var num =3;
-
-$("#S").click(function(){
-next();
-});
-
-function next(){
-    if(num==0){
-      $(".S1").hide();
-      $(".S2").hide();
-      $(".S3").hide();
-      $(".S").hide();
-    }else{
-        $(".S"+num).show();
-        num--;
-    }
-}
-*/
-
-
-
+//progressBar();
 function ready(){
-
     disc.remove();
-    document.body.appendChild(canvas);
     start= true;
 
     background.play();
-    progressBar();
-    heartBar(); //체력바
-    frame();
 
+    frame();
 }
 
 var character = {
@@ -149,7 +130,6 @@ document.addEventListener('keydown',(e)=>{
          ready();
     } 
     if(e.code === "Escape") {
-        //let pause = document.createElement('')
         if(esc === true) {
             frame(); //esc를 누른 후 다시 눌렀을 때 애니메이션 시작
             background.play();
@@ -199,42 +179,30 @@ var progressWidth =0;
 var heartWidth=0; //체력바
 
 //진행바
-const progress = document.createElement('progress')
+/* const progress = document.createElement('progress')
+//게임의 진행도를 나타냄
 function progressBar(){
     progress.setAttribute('id','progress');
     progress.setAttribute('Max',100);
     progress.setAttribute('value',0);
     document.body.appendChild(progress);
-}
-
-//체력바
-const heart = document.createElement('heart')
-function heartBar(){
-    heart.setAttribute('id','progress');
-    heart.setAttribute('Max',100);
-    heart.setAttribute('value',0);
-    document.body.appendChild(heart);
-}
+} */
 
 function frame(){ //프레임마다 실행을 할 함수
 
     //animation 을 넣어서  requestAnimationFrame(); 를 변수화 시킨다
     animation = requestAnimationFrame(frame); //js의 내장함수(frame을 반복시킨다)
     timer++; 
-
-    if(timer%100===0) progressWidth +=4;
-    if(progressWidth <=100) progress.setAttribute('value',progressWidth);
-    else endRound();
-    
-    
-    //체력바
-    if(timer%100===0) heartWidth +=4;
-    if(heartWidth <=100) heart.setAttribute('value',heartWidth);
-    else endRound();
-    
-
-    if(timer % 100 === 0) score+=1; //100프레임마다 1점씩 추가
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
+    if(timer%90===0) {
+        //progressWidth +=Math.floor(Math.random()*3);
+        score++;
+        localStorage.setItem("score",score);
+    }
+    //if(progressWidth <=100) progress.setAttribute('value',progressWidth);
+        //else clearRound();
+
+   
     if(timer%200==0){ //200프레임마다 한번 움직이게 하기
         var food = new Food();
         foodmix.push(food); //foodmix라는 배열에 200 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
@@ -274,26 +242,32 @@ function frame(){ //프레임마다 실행을 할 함수
     character.draw();    
 
 }
-
-
 frame();
 
 //라운드 끝
 function endRound(){
-
     cancelAnimationFrame(animation);
-    let newDiv = document.createElement('div');
-    newDiv.setAttribute('id','failRound');
-    newDiv.innerHTML ="GAME OVER";
-    document.body.appendChild(newDiv);
+    background.pause();
+
+    score =  localStorage.getItem("score");
+
+    let gameOverDiv = document.createElement('div');
+    gameOverDiv.setAttribute('id','failRound');
+    gameOverDiv.innerHTML ="GAME OVER";
+    document.body.appendChild(gameOverDiv);
 
     let btnDiv = document.createElement('div');
     btnDiv.setAttribute('id','btnDiv');
     document.body.appendChild(btnDiv);
 
+    let scoreDiv = document.createElement('div');
+    scoreDiv.setAttribute('id','scoreDiv');
+    scoreDiv.innerHTML="SCORE : "+score+"kcal";
+    document.body.appendChild(scoreDiv);
+
     let mainBtn = document.createElement('button');
     mainBtn.setAttribute('id','goMainBtn');
-    mainBtn.innerHTML = "Main";
+    mainBtn.innerHTML = "MAIN";
     mainBtn.addEventListener('click',()=>{
         location.href = "../html/main.html";
     });
@@ -304,11 +278,9 @@ function endRound(){
     retryBtn.addEventListener('click',()=>{
         location.href = "../html/round1.html";
     });
-    retryBtn.innerHTML = "Retry";
+    retryBtn.innerHTML = "RETRY";
     btnDiv.appendChild(retryBtn);
-
 }
-
 //라운드를 클리어 한다면
 function clearRound(){
 
@@ -346,13 +318,13 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 });
 
 //충돌 체크
-function collison(characterhitbox, food){
+/* function collison(characterhitbox, food){
     if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
     && (food.x+food.width >=characterhitbox.x && food.x+food.width <= characterhitbox.x+characterhitbox.width)) ){
         endRound();
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        cancelAnimationFrame(animation); 
-        localStorage.setItem("score",score); //디비에 score값을 저장함
-        //충돌 시 canvas 클리어 및 애니메이션을 종료한다
     };
+} */
+function collison(character, food){
+    if(character.x+character.width === food.x && character.y === food.y)
+    endRound();
 }

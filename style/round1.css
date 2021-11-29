@@ -9,10 +9,10 @@ body{
 }
 
 /*keyframes의 이름은 movebg이고 0%일때 정화면, 100%일때 가로넓이 값인 -500px로 위치 변경*/
-@keyframes movebg{
+/*@keyframes movebg{
     0% {background-position:0 center;}
     100% {background-position:  -1500px center;}
-}
+}*/
 
 
 #progress{
@@ -22,13 +22,19 @@ body{
     left: 50%;
     transform: translate(-50%, 0%);
 }
+#scoreDiv{
+    width: 500px;
+    height: 30px;
 
-#heart{
-    width: 600px;
-    height: 100px;
-    position: absolute;
-    left: 30%;
-    transform: translate(-50%, 0%);
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-250px;
+    margin-top:-50px;
+
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Righteous', cursive;
 }
 
 #disc{
@@ -47,12 +53,10 @@ body{
     margin-left:-500px;
     margin-top:-300px;
 
-    font-style: red;
     text-align: center;
     font-size: 7em;
-    font-family: 'Luckiest Guy', cursive; 
+    font-family: 'Righteous', cursive;
 }
-
 #btnDiv{
     width: 100vw;
     height: 200px;
@@ -62,13 +66,13 @@ body{
     text-align: center;
 }
 
-
 #goMainBtn, #retryBtn{
-    width: 170px;
-    height: 80px;
+    width: 180px;
+    height: 70px;
     background-color: white;
 
     margin: 70px;
     font-size: 2em;
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Viga', sans-serif;
+    border-radius: 10px;
 }
