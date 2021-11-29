@@ -91,8 +91,8 @@ var character = {
     //run = runcharacter[Math.floor(Math.random()*2)],
     //draw 메소드
     draw(){
-        //ctx.fillStyle = 'green';
-        //ctx.fillRect(this.x,this.y,this.width,this.height);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img1, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
 
     }
@@ -100,7 +100,6 @@ var character = {
 
 
 var characterhitbox={
-
     x:500,
     y:300,
     width:30,
@@ -112,18 +111,33 @@ var characterhitbox={
 //character.draw();
 //장애물 
 //각각 크기와 위치가 다르므로 아예 class 항목으로 정리한다
-class Food{
+class bottomFood{
     constructor(){ 
         //크기는 캐릭터와 동일하지만 위치는 다르게 한다
         this.x = 800; 
         this.y = 550;
         this.width = 70;
         this.height = 70;
+        this.bottomFood = bottomFoodList[Math.floor(Math.random()*2)];
+    }
+
+    //draw 메소드
+    draw(){
+        //달리는 캐릭터와 동일하지만 색상은 다르게
+        ctx.fillStyle='red';
+        ctx.fillRect(this.x,this.y,this.width,this.height);
+        ctx.drawImage(this.bottomFood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
+    }
+
+}
+
+class topFood{
+    constructor(){ 
+        //크기는 캐릭터와 동일하지만 위치는 다르게 한다
         this.x2 = 850;
         this.y2 = 500;
         this.width2 = 90;
         this.height2 = 70;
-        this.bottomFood = bottomFoodList[Math.floor(Math.random()*2)];
         this.topFood = topFoodList[Math.floor(Math.random()*1)]; //이미지 객체 수에 따른 랜덤값 넣어주기(이미지가 3개면 n은 3)
     }
 
@@ -132,10 +146,7 @@ class Food{
         //달리는 캐릭터와 동일하지만 색상은 다르게
         //ctx.fillStyle='red';
         //ctx.fillRect(this.x,this.y,this.width,this.height);
-        if(Math.floor(Math.random()*2) === 0)
-            ctx.drawImage(this.bottomFood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
-        else 
-            ctx.drawImage(this.topFood, this.x2, this.y2, this.width2, this.height2);
+        ctx.drawImage(this.topFood, this.x2, this.y2, this.width2, this.height2);
     }
 
 }
@@ -170,8 +181,8 @@ var Foodhitbox={
     height:20,
 }
 
-var food = new Food();
-food.draw();
+// var food = new Food();
+// food.draw();
 
 class Heart{
     constructor(){ 
@@ -235,21 +246,26 @@ function frame(){ //프레임마다 실행을 할 함수
 
     if(timer % 100 === 0) score+=1; //100프레임마다 1점씩 추가
     ctx.clearRect(0,0, canvas.width, canvas.height); //canvas의 context안에 존재하는 메소드. x,y를 0으로 설정하면 Canvas 전체 영역을 지우는 것이 됨. 즉, 물체가 남지 않고 이동하게
-    if(timer%200==0){ //200프레임마다 한번 움직이게 하기
-        var food = new Food();
+    if(timer%200==0){ //200프레임마다 한번 움직이게 
+        let chk = Math.floor(Math.random()*2);
+        let food;
+        //console.log(chk)
+        if(chk==0){
+            food = new bottomFood();
+        }else if(chk == 1){
+            food = new topFood();
+        }
         foodmix.push(food); //foodmix라는 배열에 200 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
     }
 
     //각각 draw()를 해 주기 위해서 forEach()메소드 사용
     foodmix.forEach((a,i,o)=>{ //forEach에는 두 개의 파라미터 넣기 가능
-       
         if(a.x < (0-a.width) &&  a.x1 < (0-a.width1)){ //오브젝트의 x값이 o보다 작아져 화면에서 나갔을 때 
            o.splice(i,1); //배열에서 (i,1)를 사라지게
            //a.x<0은 장애물의 왼쪽 위 꼭짓점이 x축을 기준으로 하기 때문에 화면밖에 닿을 때 사라진다 
            //따라서 0-a.width로 바꾼다(화면 밖에 완전히 다 나가게 하기 위해서)
         }  
          a.x--;
-         a.x1--;
          collison(character,a); //캐릭터와 모든 장애물들 간에 충돌체크를 해야하므로 foreach 안에 넣기
          a.draw(); 
     });
@@ -342,12 +358,13 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
     },1300); //1.3초 후 원상복구
 }
-});n
+});
 
 //충돌 체크
 function collison(characterhitbox, food){
     if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
     && (food.x+food.width >=characterhitbox.x && food.x+food.width <= characterhitbox.x+characterhitbox.width)) ){
+        console.log("충돌잘됨")
         endRound();
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
