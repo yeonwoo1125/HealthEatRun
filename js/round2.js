@@ -123,7 +123,7 @@ function startGame() {
     animation = requestAnimationFrame(startGame)
     frameCnt++;
 
-    if(frameCnt % 100 === 0) progressWidth+=4;
+    if(frameCnt % 100 === 0) progressWidth +=Math.floor(Math.random()*3+1);
     if(progressWidth<= 100) progress.setAttribute('value',progressWidth);
     else finishRound();
 
@@ -177,14 +177,6 @@ function finishRound(){
         location.href = "../html/main.html";
     });
      btnDiv.appendChild(mainBtn);
-
-    let rankingBtn = document.createElement('button');
-    rankingBtn.setAttribute('id','rankingBtn');
-    rankingBtn.innerHTML = "RANK";
-    rankingBtn.addEventListener('click',()=>{
-        location.href = "../html/ranking.html";
-    });
-    btnDiv.appendChild(rankingBtn);
 }
 
 //죽었을 때 보여주는 화면
