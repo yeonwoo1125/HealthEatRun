@@ -123,7 +123,7 @@ function startGame() {
     animation = requestAnimationFrame(startGame)
     frameCnt++;
 
-    if(frameCnt % 100 === 0) progressWidth +=Math.floor(Math.random()*3+1);
+    if(frameCnt % 100 === 0) progressWidth +=Math.floor(Math.random()*4+1);
     if(progressWidth<= 100) progress.setAttribute('value',progressWidth);
     else finishRound();
 
