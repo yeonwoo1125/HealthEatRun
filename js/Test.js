@@ -260,7 +260,7 @@ function frame(){ //프레임마다 실행을 할 함수
 
     //각각 draw()를 해 주기 위해서 forEach()메소드 사용
     foodmix.forEach((a,i,o)=>{ //forEach에는 두 개의 파라미터 넣기 가능
-        if(a.x < (0-a.width) &&  a.x1 < (0-a.width1)){ //오브젝트의 x값이 o보다 작아져 화면에서 나갔을 때 
+        if(a.x < 0){ //오브젝트의 x값이 o보다 작아져 화면에서 나갔을 때 
            o.splice(i,1); //배열에서 (i,1)를 사라지게
            //a.x<0은 장애물의 왼쪽 위 꼭짓점이 x축을 기준으로 하기 때문에 화면밖에 닿을 때 사라진다 
            //따라서 0-a.width로 바꾼다(화면 밖에 완전히 다 나가게 하기 위해서)
@@ -361,14 +361,16 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 });
 
 //충돌 체크
-function collison(characterhitbox, food){
-    if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
-    && (food.x+food.width >=characterhitbox.x && food.x+food.width <= characterhitbox.x+characterhitbox.width)) ){
+function collison(character, food){
+     var x축차이 = character.x - (food.x +food.width);
+     var y축차이 = character.y - (food.y +food.hight);
+     if(x축차이<0 && y축차이<0){
         console.log("충돌잘됨")
         endRound();
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
         localStorage.setItem("score",score); //디비에 score값을 저장함
         //충돌 시 canvas 클리어 및 애니메이션을 종료한다
+     }  
     };
-}
+
