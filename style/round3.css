@@ -38,7 +38,7 @@
 }
 
 
-#goMainBtn, #retryBtn{
+#goMainBtn, #retryBtn, #rankingBtn{
     width: 170px;
     height: 80px;
     background-color: white;
@@ -61,4 +61,19 @@
     text-align: center;
     font-size: 3em;
     font-family: 'Jua', sans-serif;
+}
+
+#gameClearDiv{
+    width: 1000px;
+    height: 300px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-500px;
+    margin-top:-300px;
+
+    font-style: red;
+    text-align: center;
+    font-size: 7em;
+    font-family: 'Luckiest Guy', cursive; 
 }
