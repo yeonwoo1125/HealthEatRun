@@ -2,10 +2,7 @@ let score = 0;
 if(localStorage.getItem("score")){
     score = Number(localStorage.getItem("score"));
 }
-function ranking(){ //모든 값을 가져와서 저장한 후 localStorage를 clear 하고 최대값 3개를 구하고 다시 넣기
-    let scoreLen = localStorage.length; //랭크 안에 들어있는 점수의 길이, 0~3
 
-}
 let disc = document.createElement('div');
 disc.setAttribute('id','disc');
 disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
@@ -51,7 +48,7 @@ function ready(){
     document.body.appendChild(canvas);
     start = true;
 
-    //background.play();
+    background.play();
     progressBar();
     startGame(); //space를 한번 눌러야 시작
 }
@@ -92,7 +89,7 @@ document.addEventListener('keydown',(e)=>{
     if(e.code === "Escape") {
         if(esc === true) {
             startGame(); //esc 누른 후 다시 눌렀을 때 애니메이션 시작
-            //background.play();
+            background.play();
             esc = false;
         }
         else {
