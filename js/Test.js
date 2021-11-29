@@ -79,7 +79,6 @@ function ready(){
     progressBar();
     heartBar(); //체력바
     frame();
-
 }
 
 var character = {
@@ -357,20 +356,20 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
         character.y-=30;
 
     },1300); //1.3초 후 원상복구
-}
+  }
 });
 
+
 //충돌 체크
-function collison(character, food){
-     var x축차이 = character.x - (food.x +food.width);
-     var y축차이 = character.y - (food.y +food.hight);
-     if(x축차이<0 && y축차이<0){
-        console.log("충돌잘됨")
+function collison(characterhitbox, food){
+    if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
+    && (food.x+food.width >=characterhitbox.x && food.x+food.width <= characterhitbox.x+characterhitbox.width)) ){
         endRound();
+        
         ctx.clearRect(0,0,canvas.width, canvas.height);
         cancelAnimationFrame(animation); 
         localStorage.setItem("score",score); //디비에 score값을 저장함
         //충돌 시 canvas 클리어 및 애니메이션을 종료한다
      }  
-    };
+};
 

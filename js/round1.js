@@ -71,6 +71,7 @@ function next(){
 
 
 function ready(){
+
     disc.remove();
     document.body.appendChild(canvas);
     start= true;
@@ -100,7 +101,6 @@ var character = {
 
 
 var characterhitbox={
-
     x:500,
     y:300,
     width:30,
@@ -264,6 +264,7 @@ function frame(){ //프레임마다 실행을 할 함수
             character.y+=2; //아래로 내려오게(y값을 늘린다)
         }
     }
+    
     if(jumpTime>100){ //jumpTime이 50프레임을 넘긴다면 
         jump=false; //멈추기(y축의 이동을)
         //여기까지만 하면 멈추기만 하고 다시 jump기능이 작동을 안한다
@@ -342,7 +343,7 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
     },1300); //1.3초 후 원상복구
 }
-});n
+});
 
 //충돌 체크
 function collison(characterhitbox, food){
