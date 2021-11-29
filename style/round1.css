@@ -14,12 +14,24 @@ body{
     100% {background-position:  -1500px center;}
 }*/
 
+#gameClearDiv{
+    width: 1000px;
+    height: 100px;
+    position:absolute;
+    left:50%;
+    top:200px;
+    margin-left:-500px;
 
+    text-align: center;
+    font-size: 8em;
+    font-family: 'Righteous', cursive;
+}
 #progress{
     width: 600px;
     height: 100px;
     position: absolute;
     left: 50%;
+    top : 0%;
     transform: translate(-50%, 0%);
 }
 #scoreDiv{
