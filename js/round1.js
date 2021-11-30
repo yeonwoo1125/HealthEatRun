@@ -99,7 +99,6 @@ class Food{
         this.y = 550;
         this.width = 70;
         this.height = 70;
-        this.x2 = 850;
         this.y2 = 500;
         this.width2 = 90;
         this.height2 = 70;
@@ -115,7 +114,7 @@ class Food{
         if(Math.floor(Math.random()*2) === 0)
             ctx.drawImage(this.bottomFood, this.x, this.y, this.width, this.height); //drawImage를 이용하여 이미지임을 적어준다
         else 
-            ctx.drawImage(this.topFood, this.x2, this.y2, this.width2, this.height2);
+            ctx.drawImage(this.topFood, this.x, this.y2, this.width2, this.height2);
     }
 
 }
