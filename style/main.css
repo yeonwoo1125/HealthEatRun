@@ -9,18 +9,17 @@
     /*배경*/
     body {
         background-color: RGB(255,255,153); 
-      /*  background-image: url('/img/main/햄버거감튀.png'),url('/img/main/콜라치킨.png'),url('/img/main/햄버거감튀.png'),
-        url('/img/main/콜라치킨.png'),url('/img/main/햄버거감튀.png'),url('/img/main/콜라치킨.png'),url('/img/main/햄버거감튀.png'),
-        url('/img/main/콜라치킨.png'); 
+        background-image: url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),
+        url('../img/콜라치킨.png'),url('../img/햄버거감튀.png'),url('../img/콜라치킨.png'); 
         background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
         background-repeat: repeat-x;
-        
-        animation: displace 4s linear infinite;
-       {
-        from { background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
-        to { background-position: center 1200px; }
-       */
-
+        background-size: 300px;  
+            animation: displace 4s linear infinite;
+        }
+        @keyframes displace {
+            from { background-position: 0px 0px, 70px 100px, 0px 200px, 70px 300px, 0px 400px, 70px 500px, 0px 600px, 70px 800px;
+            } to { background-position: center 1200px;
+        }
     }
 
     /*타이틀*/

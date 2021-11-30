@@ -177,7 +177,7 @@ function frame(){
     });
 
     if(jumping == true){
-        character.y-=2; //캐릭터를 위로 올린다
+        character.y-=3; //캐릭터를 위로 올린다
         jumptimer+=2;
       }
 

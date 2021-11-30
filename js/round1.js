@@ -1,5 +1,4 @@
 
-
 localStorage.removeItem("score");
 let score = 0;
 
@@ -84,8 +83,8 @@ var character = {
 var characterhitbox={
     x:500,
     y:300,
-    width:30,
-    height:30,
+    width:20,
+    height:20,
 }
 
 
@@ -145,8 +144,8 @@ document.addEventListener('keydown',(e)=>{
 var Foodhitbox={
     x:500,
     y:300,
-    width:20,
-    height:20,
+    width:10,
+    height:10,
 }
 
 var food = new Food();
@@ -201,7 +200,7 @@ function frame(){ //프레임마다 실행을 할 함수
     if(progressWidth <= 100) progress.setAttribute('value',progressWidth);
     else finishRound();
    
-    if(timer%200==0){ //200프레임마다 한번 움직이게 하기
+    if(timer%210==0){ //200프레임마다 한번 움직이게 하기
         var food = new Food();
         foodmix.push(food); //foodmix라는 배열에 200 프레임마다 한번씩 food를 푸시.(배열이 점점 차오른다)
     }
@@ -327,7 +326,13 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
         endRound();
     };
 } */
-function collison(character, food){
+function collison(characterhitbox, Foodhitbox){
     if(character.x+character.width === food.x && character.y === food.y)
+    /*let x = Foodhitbox.x - (characterhitbox.x + characterhitbox.width);
+    let y = Foodhitbox.y - (characterhitbox.y + characterhitbox.height);
+    if(x<0 && y<0){
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        cancelAnimationFrame(animation);*/
     endRound();
-}
+    }
+//}
