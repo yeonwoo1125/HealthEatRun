@@ -2,7 +2,7 @@
 localStorage.removeItem("score");
 let score = 0;
 
-let disc = document.createElement('div');
+const disc = document.createElement('div');
 disc.setAttribute('id','disc');
 disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
 document.body.appendChild(disc);
@@ -11,7 +11,7 @@ const background = new Audio('../music/MP_Waterfall.mp3'); //배경 음악
 background.volume = 0.1;
 let start = false;
 
-let bottom = document.createElement('div')
+const bottom = document.createElement('div')
 bottom.setAttribute('id','bottom');
 document.body.appendChild(bottom);
 
@@ -63,7 +63,7 @@ function ready(){
     frame();
 }
 
-var character = {
+const character = {
 
     x:500,
     y:300,
@@ -80,7 +80,7 @@ var character = {
 }
 
 
-var characterhitbox={
+const characterhitbox={
     x:500,
     y:300,
     width:20,
@@ -141,15 +141,12 @@ document.addEventListener('keydown',(e)=>{
     }
 });
 
-var Foodhitbox={
+const Foodhitbox={
     x:500,
     y:300,
     width:10,
     height:10,
 }
-
-var food = new Food();
-food.draw();
 
 class Heart{
     constructor(){ 
@@ -169,12 +166,11 @@ class Heart{
 }
 
 
-var timer = 0; //화면마다 움직이는 게 다르니 그것을 방지하기 위해 timer설정
-var foodmix=[]; //foodmix 배열
-var jumpTime=0; //점프 타이머
-var animation; //animation 효과
-var progressWidth =0;
-var heartWidth=0; //체력바
+let timer = 0; //화면마다 움직이는 게 다르니 그것을 방지하기 위해 timer설정
+let foodmix=[]; //foodmix 배열
+let jumpTime=0; //점프 타이머
+let animation; //animation 효과
+let progressWidth = 0;
 
 //진행바
 const progress = document.createElement('progress')
@@ -248,21 +244,21 @@ function endRound(){
 
     score =  localStorage.getItem("score");
 
-    let gameOverDiv = document.createElement('div');
+    const gameOverDiv = document.createElement('div');
     gameOverDiv.setAttribute('id','failRound');
     gameOverDiv.innerHTML ="GAME OVER";
     document.body.appendChild(gameOverDiv);
 
-    let btnDiv = document.createElement('div');
+    const btnDiv = document.createElement('div');
     btnDiv.setAttribute('id','btnDiv');
     document.body.appendChild(btnDiv);
 
-    let scoreDiv = document.createElement('div');
+    const scoreDiv = document.createElement('div');
     scoreDiv.setAttribute('id','scoreDiv');
     scoreDiv.innerHTML="SCORE : "+score+"kcal";
     document.body.appendChild(scoreDiv);
 
-    let mainBtn = document.createElement('button');
+    const mainBtn = document.createElement('button');
     mainBtn.setAttribute('id','goMainBtn');
     mainBtn.innerHTML = "MAIN";
     mainBtn.addEventListener('click',()=>{
@@ -270,7 +266,7 @@ function endRound(){
     });
      btnDiv.appendChild(mainBtn);
 
-    let retryBtn = document.createElement('button');
+     const retryBtn = document.createElement('button');
     retryBtn.setAttribute('id','retryBtn');
     retryBtn.addEventListener('click',()=>{
         location.href = "../html/round1.html";
@@ -283,12 +279,12 @@ function finishRound(){
     cancelAnimationFrame(animation);
     background.pause();
 
-    let gameClearDiv = document.createElement('div');
+    const gameClearDiv = document.createElement('div');
     gameClearDiv.setAttribute('id','gameClearDiv');
     gameClearDiv.innerHTML = "ROUND1 CLEAR!";
     document.body.appendChild(gameClearDiv);
 
-    let scoreDiv = document.createElement('div');
+    const scoreDiv = document.createElement('div');
     scoreDiv.setAttribute('id','scoreDiv');
     scoreDiv.innerHTML="SCORE : "+score+"kcal";
     document.body.appendChild(scoreDiv);
@@ -301,7 +297,7 @@ function finishRound(){
 //현재의 위치보다 올리는 것이므로 값은 - 로 가야한다
 //1초에 60번 2를 빼주는 것 따라서
 //character.y-=2;
-var jump = false; //여기에 false로 선언
+let jump = false; //여기에 false로 선언
 document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
    if(e.code == 'Space'){
     //여기서는 character.y-2를 할 수가 없음

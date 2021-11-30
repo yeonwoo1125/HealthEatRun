@@ -3,7 +3,7 @@ if(localStorage.getItem("score")){
     score = Number(localStorage.getItem("score"));
 }
 
-let disc = document.createElement('div');
+const disc = document.createElement('div');
 disc.setAttribute('id','disc');
 disc.innerHTML = "Space를 눌러 게임을 시작하세요!";
 document.body.appendChild(disc);
@@ -12,7 +12,7 @@ const background = new Audio('../music/SnakeontheBeach.mp3'); //배경 음악
 background.volume = 0.1;
 let start = false;
 
-let bottom = document.createElement('div')
+const bottom = document.createElement('div')
 bottom.setAttribute('id','bottom');
 document.body.appendChild(bottom);
 
@@ -26,7 +26,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight-105;
 
-let runningman = new Image();
+const runningman = new Image();
 runningman.src="../img/round2/man_right.png";
 
 //배열에 넣어서 랜덤으로 나오게 하기
@@ -156,21 +156,21 @@ function finishRound(){
     cancelAnimationFrame(animation);
     background.pause();
 
-    let gameClearDiv = document.createElement('div');
+    const gameClearDiv = document.createElement('div');
     gameClearDiv.setAttribute('id','gameClearDiv');
     gameClearDiv.innerHTML = "GAME CLEAR!";
     document.body.appendChild(gameClearDiv);
 
-    let btnDiv = document.createElement('div');
+    const btnDiv = document.createElement('div');
     btnDiv.setAttribute('id','btnDiv');
     document.body.appendChild(btnDiv);
 
-    let scoreDiv = document.createElement('div');
+    const scoreDiv = document.createElement('div');
     scoreDiv.setAttribute('id','scoreDiv');
     scoreDiv.innerHTML="SCORE : "+score+"kcal";
     document.body.appendChild(scoreDiv);
 
-    let mainBtn = document.createElement('button');
+    const mainBtn = document.createElement('button');
     mainBtn.setAttribute('id','goMainBtn');
     mainBtn.innerHTML = "MAIN";
     mainBtn.addEventListener('click',()=>{
@@ -186,21 +186,21 @@ function endRound(){
 
     score =  localStorage.getItem("score");
 
-    let gameOverDiv = document.createElement('div');
+    const gameOverDiv = document.createElement('div');
     gameOverDiv.setAttribute('id','failRound');
     gameOverDiv.innerHTML ="GAME OVER";
     document.body.appendChild(gameOverDiv);
 
-    let btnDiv = document.createElement('div');
+    const btnDiv = document.createElement('div');
     btnDiv.setAttribute('id','btnDiv');
     document.body.appendChild(btnDiv);
 
-    let scoreDiv = document.createElement('div');
+    const scoreDiv = document.createElement('div');
     scoreDiv.setAttribute('id','scoreDiv');
     scoreDiv.innerHTML="SCORE : "+score+"kcal";
     document.body.appendChild(scoreDiv);
 
-    let mainBtn = document.createElement('button');
+    const mainBtn = document.createElement('button');
     mainBtn.setAttribute('id','goMainBtn');
     mainBtn.innerHTML = "MAIN";
     mainBtn.addEventListener('click',()=>{
@@ -208,7 +208,7 @@ function endRound(){
     });
      btnDiv.appendChild(mainBtn);
 
-    let retryBtn = document.createElement('button');
+    const retryBtn = document.createElement('button');
     retryBtn.setAttribute('id','retryBtn');
     retryBtn.addEventListener('click',()=>{
         location.href = "../html/round1.html";
