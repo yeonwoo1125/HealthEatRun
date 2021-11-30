@@ -362,14 +362,16 @@ document.addEventListener('keydown', function(e){ //키를 누를 때(kewdown)
 
 //충돌 체크
 function collison(characterhitbox, food){
-    if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
+    /*if(food.y>= characterhitbox.y && ((food.x>=characterhitbox.x && food.x<=characterhitbox.x+characterhitbox.width) 
     && (food.x+food.width >=characterhitbox.x && food.x+food.width <= characterhitbox.x+characterhitbox.width)) ){
         endRound();
-        
-        ctx.clearRect(0,0,canvas.width, canvas.height);
+          
+        ctx.clearRect(0,0,canvas.width, canvas.height);*/
         cancelAnimationFrame(animation); 
+        if(character.x+character.width === food.x && character.y === food.y)
         localStorage.setItem("score",score); //디비에 score값을 저장함
         //충돌 시 canvas 클리어 및 애니메이션을 종료한다
-     }  
-};
+     }  ;
+    
+
 

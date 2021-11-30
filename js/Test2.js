@@ -176,21 +176,23 @@ function frame(){
         a.draw()
     });
 
-    if(jumping == true){
-        character.y-=3; //캐릭터를 위로 올린다
-        jumptimer+=2;
-      }
+    if(jump==true){ //jump값이 true가 된다면(space를 누른다면)
+        human.y-=3; //y가 쭉 올라가게 한다
+        jumpTime+=2; //jumpTime도 증가
+    }
+    if(jump==false){
+        if(human.y<500){  //y축의 위치가 일정높이에 다다랐을때
+            human.y+=2; //아래로 내려오게(y값을 늘린다)
+        }
+    }
+    
+    if(jumpTime>100){ //jumpTime이 50프레임을 넘긴다면 
+        jump=false; //멈추기(y축의 이동을)
+        //여기까지만 하면 멈추기만 하고 다시 jump기능이 작동을 안한다
+        jumpTime=0; //그래서 jumptime을 초기화했다
+    }
 
-      if(jumping == false){ //점프중이 아니라면 다시 내려오게한다
-          if(character.y<220){
-          character.y+=2;
-          } 
-      }
-      if(jumptimer >100){ //100프레임이 넘어간다면 점프를 멈추게 
-          jumping=false;
-          jumptimer=0;
-      }
-      character.draw();
+    human.draw();    
 }
 
 frame();
